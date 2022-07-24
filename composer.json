@@ -1,0 +1,35 @@
+{
+  "name": "blmvuln/blmvuln",
+  "description": "blmvuln",
+  "type": "prestashop-module",
+  "homepage": "https://addons.prestashop.com/en/",
+  "license": "MIT",
+  "keywords": [],
+  "authors": [
+    {
+      "name": "Mathias R.",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1"
+  },
+  "config": {
+    "platform": {
+      "php": "7.1"
+    },
+    "preferred-install": "dist",
+    "prepend-autoloader": false
+  },
+  "autoload": {
+    "psr-4": {
+      "PrestaShop\\Module\\BlmVuln\\": "src/"
+    },
+    "classmap": [
+      [
+        "controllers/",
+        "blmvuln.php"
+      ]
+    ]
+  }
+}

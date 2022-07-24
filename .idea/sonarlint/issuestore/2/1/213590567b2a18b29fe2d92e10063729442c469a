@@ -1,0 +1,4 @@
+
+P	php:S6397Ò"5Replace this character class by the character itself.(Μ™άψÿÿÿÿ
+~php:S115'"eRename this constant "_PS_SMARTY_DIR_" to match the regular expression ^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$.(ΰΞΖκόÿÿÿÿ
+I	php:S3801n"4Refactor this function to use "return" consistently.(Ο”“Ζ
