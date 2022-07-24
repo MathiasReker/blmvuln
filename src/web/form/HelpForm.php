@@ -45,7 +45,7 @@ final class HelpForm extends AbstractForm
     private function helpMenu(): string
     {
         $buttons = [
-            ['Need help?', '#'],
+            ['Need help?', 'https://github.com/MathiasReker/blm-vlun/issues/new'],
             ['Want to donate?', 'https://github.com/sponsors/MathiasReker?frequency=one-time&sponsor=MathiasReker'],
             ['See all my modules', 'https://addons.prestashop.com/221_shinetech'],
         ];
