@@ -16,7 +16,7 @@ final class BlmVuln extends Module
     {
         $this->name = 'blmvuln';
         $this->tab = 'administration';
-        $this->version = '1.1.0';
+        $this->version = '1.2.0';
         $this->author = 'Mathias R.';
         $this->need_instance = 0;
         $this->module_key = '';
