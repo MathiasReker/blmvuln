@@ -66,7 +66,10 @@ final class Config
     /**
      * @var string[]
      */
-    const PATCHED_FILES = ['classes/Smarty/SmartyCacheResourceMysql.php'];
+    const PATCHED_FILES = [
+        'classes/Smarty/SmartyCacheResourceMysql.php',
+        'classes/SmartyCacheResourceMysql.php'
+    ];
 
     /**
      * @var int

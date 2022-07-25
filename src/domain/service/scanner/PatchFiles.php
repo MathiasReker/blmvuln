@@ -46,7 +46,7 @@ final class PatchFiles implements ScannerInterface
                     continue;
                 }
 
-                if ($this->isDifferent($patchFile, $currentFile)) {
+                if ($this->isDifferance($patchFile, $currentFile)) {
                     $this->patchedFiles[] = $file;
                 }
             }
@@ -88,7 +88,7 @@ final class PatchFiles implements ScannerInterface
         return _PS_MODULE_DIR_ . Config::MODULE_NAME . '/patch/';
     }
 
-    private function isDifferent(string $file1, string $file2): bool
+    private function isDifferance(string $file1, string $file2): bool
     {
         return sha1_file($file1) !== sha1_file($file2);
     }

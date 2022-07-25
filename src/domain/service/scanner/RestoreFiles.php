@@ -46,7 +46,7 @@ final class RestoreFiles implements ScannerInterface
                     continue;
                 }
 
-                if ($this->isDifferent($originalFile, $currentFile)) {
+                if ($this->isDifferance($originalFile, $currentFile)) {
                     $this->infectedFiles[] = $file;
                 }
             }
@@ -88,7 +88,7 @@ final class RestoreFiles implements ScannerInterface
         return _PS_ROOT_DIR_ . '/';
     }
 
-    private function isDifferent(string $file1, string $file2): bool
+    private function isDifferance(string $file1, string $file2): bool
     {
         return sha1_file($file1) !== sha1_file($file2);
     }
