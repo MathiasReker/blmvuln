@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\BlmVuln\domain\service\cache;
 
-interface CacheInterface
+interface ClearCacheInterface
 {
     public function all();
 }

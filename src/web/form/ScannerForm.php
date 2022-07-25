@@ -17,6 +17,7 @@ namespace PrestaShop\Module\BlmVuln\web\form;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchFiles;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchModules;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFiles;
+use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFilesByPattern;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RestoreFiles;
 use PrestaShop\Module\BlmVuln\resources\config\Config;
 use PrestaShop\Module\BlmVuln\web\util\View;
@@ -62,7 +63,7 @@ final class ScannerForm extends AbstractForm
 
         $modules = (new PatchModules(Config::PATCH_MODULES))->scan()->dryRun();
 
-        $arr = [
+        $sections = [
             [
                 $modules,
                 $this->module->l('You are vulnerable. You must upgrade the following modules manually:', $this->className),
@@ -70,26 +71,34 @@ final class ScannerForm extends AbstractForm
             ],
             [
                 (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->dryRun(),
-                $this->module->l('The following files looks infected. They will be restored to its original state by running the cleaning process.'),
-                $this->module->l('No infected was files found.'),
+                $this->module->l('The following files looks infected. They will be restored to its original state by running the cleaning process.', $this->className),
+                $this->module->l('No infected was files found.', $this->className),
             ],
             [
-                (new RemoveFiles(Config::MALWARE_FILES_PATTERN))->scan()->dryRun(),
-                $this->module->l('The following files are malware. They will be removed by running the cleaning process:'),
-                $this->module->l('No malware was found.'),
+                array_merge(
+                    (new RemoveFiles(Config::MALWARE_FILES_PATTERN))->scan()->dryRun(),
+                    (new RemoveFilesByPattern(Config::getPathsInfectedJsFiles()))
+                        ->setFilesize(Config::FILE_SIZE)
+                        ->setFileLength(Config::FILE_LENGTH)
+                        ->setFileExtension(Config::FILE_EXTENSION)
+                        ->scan()
+                        ->dryRun()
+                ),
+                $this->module->l('The following files are malware. They will be removed by running the cleaning process:', $this->className),
+                $this->module->l('No malware was found.', $this->className),
             ],
             [
                 (new PatchFiles(Config::PATCHED_FILES))->scan()->dryRun(),
-                $this->module->l('The following files need to get patched. They will get patched by running the cleaning process:'),
-                $this->module->l('No patches required.'),
+                $this->module->l('The following files need to get patched. They will get patched by running the cleaning process:', $this->className),
+                $this->module->l('No patches required.', $this->className),
             ],
         ];
 
-        foreach ($arr as $singleArr) {
-            if (!empty($singleArr[0])) {
-                $result .= View::displayAlertDanger($singleArr[1] . '<br>' . implode('<br>', $singleArr[0]));
+        foreach ($sections as $section) {
+            if (!empty($section[0])) {
+                $result .= View::displayAlertDanger($section[1] . '<br>' . implode('<br>', $section[0]));
             } else {
-                $result .= View::displayAlertSuccess($singleArr[2]);
+                $result .= View::displayAlertSuccess($section[2]);
             }
         }
 

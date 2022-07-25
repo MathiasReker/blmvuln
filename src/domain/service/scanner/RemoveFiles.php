@@ -50,7 +50,9 @@ final class RemoveFiles implements ScannerInterface
         }
 
         foreach ($this->infectedFiles as $infectedFile) {
-            unlink($this->getRoot() . $infectedFile);
+            if (file_exists($infectedFile)) {
+                unlink($this->getRoot() . $infectedFile);
+            }
         }
 
         return true;

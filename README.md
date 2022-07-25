@@ -28,16 +28,31 @@ The module is also designed to remove malware from infected websites! A typical 
 
 1. Download the latest version of the module: https://github.com/MathiasReker/blmvuln/releases/latest
 
-2. Install the module on your PrestaShop website.
+2. The installation is 100 % according to PrestaShop's standards:
 
-3. Open the module and click on "Run the cleaning process"
+
+    Login into your shop's back office
+    Go to "Module Manager"
+    Click on "Upload a Module"
+    Upload and install the module
+
+## Usage
+
+Open the module and click on "Run the cleaning process".
 
 That's it!
+
+After running the cleaning process, you can uninstall the module.
+
+## Compatibility
+
+*The module requires PrestaShop 1.7.1+ and PHP 7.1.*
 
 ## Roadmap
 
 - [x] Scan for common patterns
 - [x] Fix infected files
+- [x] Compatible with PrestaShop 1.7.1
 - [ ] Backward compatible with PrestaShop 1.6.1
 
 See the [open issues](https://github.com/MathiasReker/blmvuln/issues) for a complete list of proposed features (and
@@ -78,5 +93,3 @@ It is distributed under the MIT License. See `LICENSE` for more information.
 [license-shield]: https://img.shields.io/github/license/MathiasReker/blmvuln.svg
 
 [license-url]: https://github.com/MathiasReker/blmvuln/blob/develop/LICENSE.txt
-
-*The module requires PrestaShop 1.7.1+ and PHP 7.1.*

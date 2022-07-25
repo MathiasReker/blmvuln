@@ -24,7 +24,7 @@ final class PatchModules implements ScannerInterface
     /**
      * @var mixed[]
      */
-    private $vulnableModules = [];
+    private $vulnerableModules = [];
 
     public function __construct($modules)
     {
@@ -38,7 +38,7 @@ final class PatchModules implements ScannerInterface
                 $moduleVersion = Module::getInstanceByName($module)->version;
 
                 if (Tools::version_compare($moduleVersion, $version)) {
-                    $this->vulnableModules[] = $module;
+                    $this->vulnerableModules[] = $module;
                 }
             }
         }
@@ -56,6 +56,6 @@ final class PatchModules implements ScannerInterface
      */
     public function dryRun(): array
     {
-        return $this->vulnableModules;
+        return $this->vulnerableModules;
     }
 }

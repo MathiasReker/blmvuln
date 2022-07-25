@@ -17,7 +17,7 @@ namespace PrestaShop\Module\BlmVuln\domain\service\cache;
 use Category;
 use Tools;
 
-final class ClearCache implements CacheInterface
+final class ClearClearCache implements ClearCacheInterface
 {
     public function all(): void
     {

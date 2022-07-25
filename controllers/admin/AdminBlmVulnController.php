@@ -12,10 +12,11 @@
 
 declare(strict_types=1);
 
-use PrestaShop\Module\BlmVuln\domain\service\cache\ClearCache;
+use PrestaShop\Module\BlmVuln\domain\service\cache\ClearClearCache;
 use PrestaShop\Module\BlmVuln\domain\service\form\Form;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchFiles;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFiles;
+use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFilesByPattern;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RestoreFiles;
 use PrestaShop\Module\BlmVuln\resources\config\Config;
 use PrestaShop\Module\BlmVuln\web\form\HelpForm;
@@ -52,7 +53,14 @@ final class AdminBlmVulnController extends ModuleAdminController
 
         (new PatchFiles(Config::PATCHED_FILES))->scan()->fix();
 
-        (new ClearCache())->all();
+        (new RemoveFilesByPattern(Config::getPathsInfectedJsFiles()))
+            ->setFilesize(Config::FILE_SIZE)
+            ->setFileLength(Config::FILE_LENGTH)
+            ->setFileExtension(Config::FILE_EXTENSION)
+            ->scan()
+            ->fix();
+
+        (new ClearClearCache())->all();
     }
 
     private function renderAdminForm(): string

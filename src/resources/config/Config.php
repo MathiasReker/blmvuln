@@ -72,7 +72,21 @@ final class Config
         'blockwishlist' => '2.1.1',
     ];
 
+    public const FILE_SIZE = 0; // 33637
+
+    public const FILE_LENGTH = 5;
+
+    public const FILE_EXTENSION = 'js';
+
     private function __construct()
     {
+    }
+
+    public static function getPathsInfectedJsFiles(): array
+    {
+        return [
+            _PS_ROOT_DIR_ . '/js/',
+            _PS_MODULE_DIR_
+        ];
     }
 }
