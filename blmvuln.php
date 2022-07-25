@@ -10,14 +10,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
-
-use PrestaShop\Module\BlmVuln\install\Disabler;
-use PrestaShop\Module\BlmVuln\install\Enabler;
-use PrestaShop\Module\BlmVuln\install\Installer;
-use PrestaShop\Module\BlmVuln\install\Uninstaller;
-use PrestaShop\Module\BlmVuln\resources\config\Config;
-
 final class BlmVuln extends Module
 {
     public function __construct()
@@ -37,7 +29,7 @@ final class BlmVuln extends Module
         $this->displayName = $this->l('BLM vulnerability');
         $this->description = $this->l('This module aims to secure a website vulnerable to CVE-2022-31101.');
         $this->ps_versions_compliancy = [
-            'min' => '1.7.1',
+            'min' => '1.6.1',
             'max' => _PS_VERSION_,
         ];
     }
@@ -45,7 +37,7 @@ final class BlmVuln extends Module
     /**
      * Autoload's project files from /src directory.
      */
-    public function autoLoad(): void
+    public function autoLoad()
     {
         require_once $this->getLocalPath() . 'vendor/autoload.php';
     }
@@ -54,7 +46,7 @@ final class BlmVuln extends Module
     {
         $this->setShopContextAll();
 
-        if (!(new Installer($this))->execute() || !parent::install()) {
+        if (!(new PrestaShop\Module\BlmVuln\install\Installer($this))->execute() || !parent::install()) {
             $this->uninstall();
 
             return false;
@@ -73,7 +65,7 @@ final class BlmVuln extends Module
             return false;
         }
 
-        return (new Uninstaller($this))->execute();
+        return (new PrestaShop\Module\BlmVuln\install\Uninstaller($this))->execute();
     }
 
     public function enable($force_all = false): bool
@@ -82,7 +74,7 @@ final class BlmVuln extends Module
             return false;
         }
 
-        return (new Enabler($this))->execute();
+        return (new PrestaShop\Module\BlmVuln\install\Enabler($this))->execute();
     }
 
     public function disable($force_all = false): bool
@@ -91,13 +83,13 @@ final class BlmVuln extends Module
             return false;
         }
 
-        return (new Disabler($this))->execute();
+        return (new PrestaShop\Module\BlmVuln\install\Disabler($this))->execute();
     }
 
     /**
      * Gets the content of the module page.
      */
-    public function getContent(): void
+    public function getContent()
     {
         $this->redirectToModuleAdminController();
     }
@@ -118,9 +110,9 @@ final class BlmVuln extends Module
     /**
      * Redirects the user to the admin front controller.
      */
-    private function redirectToModuleAdminController(): void
+    private function redirectToModuleAdminController()
     {
-        $redirect = $this->context->link->getAdminLink(Config::CONTROLLER_NAME, true, false);
+        $redirect = $this->context->link->getAdminLink(PrestaShop\Module\BlmVuln\resources\config\Config::CONTROLLER_NAME, true, false);
 
         Tools::redirectAdmin($redirect);
     }

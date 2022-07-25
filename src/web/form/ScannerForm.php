@@ -102,6 +102,8 @@ final class ScannerForm extends AbstractForm
             }
         }
 
-        return $result . '<style>.bootstrap, .form-horizontal, .form-wrapper{max-width: 100% !important;}</style>';
+        $result .= '<style>.bootstrap, .form-horizontal, .form-wrapper{max-width: 100% !important;}</style>';
+
+        return $result;
     }
 }

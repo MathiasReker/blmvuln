@@ -24,7 +24,7 @@ final class ContextService
         return Context::getContext()->language;
     }
 
-    public static function getContext(): ?Context
+    public static function getContext()
     {
         return Context::getContext();
     }

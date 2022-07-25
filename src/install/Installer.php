@@ -31,7 +31,7 @@ final class Installer extends AbstractInstaller
         return $this->installTab();
     }
 
-    private function checkPhpVersion(): void
+    private function checkPhpVersion()
     {
         if (Tools::version_compare(Tools::checkPhpVersion(), Config::MINIMUM_PHP_VERSION)) {
             $error = sprintf(
@@ -43,7 +43,7 @@ final class Installer extends AbstractInstaller
         }
     }
 
-    private function installConfig(): void
+    private function installConfig()
     {
         $configs = Field::getPreconfiguredValues();
 

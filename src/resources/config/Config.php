@@ -19,27 +19,27 @@ final class Config
     /**
      * @var int
      */
-    public const DEFAULT_MODE_FOLDER = 0755;
+    const DEFAULT_MODE_FOLDER = 0755;
 
     /**
      * @var string
      */
-    public const MODULE_NAME = 'blmvuln';
+    const MODULE_NAME = 'blmvuln';
 
     /**
      * @var string
      */
-    public const CONTROLLER_NAME = 'AdminBlmVuln';
+    const CONTROLLER_NAME = 'AdminBlmVuln';
 
     /**
      * @var string
      */
-    public const MINIMUM_PHP_VERSION = '7.1';
+    const MINIMUM_PHP_VERSION = '7.0';
 
     /**
      * @var string[]
      */
-    public const INFECTED_FILES_PATTERN = [
+    const INFECTED_FILES_PATTERN = [
         'classes/Controller.php',
         'classes/controller/Controller.php',
         'classes/controller/FrontController.php',
@@ -53,37 +53,38 @@ final class Config
         'controllers/AdminLoginController.php',
         'controllers/front/IndexController.php',
         'tools/smarty/sysplugins/smarty_internal_templatebase.php',
+        'config/smarty.config.inc.php',
     ];
 
     /**
-     * @var int
+     * @var string[]
      */
-    public const FILE_SIZE = 33637;
+    const PATCHED_FILES = ['classes/Smarty/SmartyCacheResourceMysql.php'];
 
     /**
      * @var int
      */
-    public const FILE_LENGTH = 5;
+    const FILE_SIZE = 33637;
+
+    /**
+     * @var int
+     */
+    const FILE_LENGTH = 5;
 
     /**
      * @var string
      */
-    public const FILE_EXTENSION = 'js';
+    const FILE_EXTENSION = 'js';
 
     /**
      * @var string[]
      */
-    public const MALWARE_FILES_PATTERN = ['blm.php', 'app/Mage.php'];
-
-    /**
-     * @var string[]
-     */
-    public const PATCHED_FILES = ['config/smarty.config.inc.php'];
+    const MALWARE_FILES_PATTERN = ['blm.php', 'app/Mage.php'];
 
     /**
      * @var array<string, string>
      */
-    public const PATCH_MODULES = [
+    const PATCH_MODULES = [
         'blockwishlist' => '2.1.1',
     ];
 

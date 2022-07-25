@@ -21,7 +21,7 @@ final class PatchFiles implements ScannerInterface
     /**
      * @var mixed[]
      */
-    private $oldFiles = [];
+    private $patchedFiles = [];
 
     private $files;
 
@@ -32,16 +32,22 @@ final class PatchFiles implements ScannerInterface
 
     public function scan(): self
     {
+        $patchRoot = $this->getPatchRoot();
+
         $root = $this->getRoot();
 
         foreach ($this->files as $file) {
             $currentFile = $root . $file;
 
             if (file_exists($currentFile)) {
-                $patchedFile = $this->getPatchRoot() . $file;
+                $patchFile = $patchRoot . $file;
 
-                if ($this->isDifferent($patchedFile, $currentFile)) {
-                    $this->oldFiles[] = $file;
+                if (!is_file($patchFile)) {
+                    continue;
+                }
+
+                if ($this->isDifferent($patchFile, $currentFile)) {
+                    $this->patchedFiles[] = $file;
                 }
             }
         }
@@ -51,16 +57,14 @@ final class PatchFiles implements ScannerInterface
 
     public function fix(): bool
     {
-        if (empty($this->oldFiles)) {
+        if (empty($this->patchedFiles)) {
             return false;
         }
 
-        $root = $this->getRoot();
+        foreach ($this->patchedFiles as $patchedFile) {
+            $cleanFile = file_get_contents($this->getPatchRoot() . $patchedFile);
 
-        foreach ($this->oldFiles as $oldFile) {
-            $patchedFile = file_get_contents($this->getPatchRoot() . $oldFile);
-
-            file_put_contents($root . $oldFile, $patchedFile);
+            file_put_contents($this->getRoot() . $patchedFile, $cleanFile);
         }
 
         return true;
@@ -71,7 +75,7 @@ final class PatchFiles implements ScannerInterface
      */
     public function dryRun(): array
     {
-        return $this->oldFiles;
+        return $this->patchedFiles;
     }
 
     private function getRoot(): string

@@ -45,14 +45,14 @@ deletes malware files added by the attacker.
 
 ## Compatibility
 
-*The module requires PrestaShop 1.7.1+ and PHP 7.1.*
+*The module requires PrestaShop 1.6.1+ and PHP 7.0+*
 
 ## Roadmap
 
 - [x] Scan for common patterns
 - [x] Fix infected files
-- [x] Compatible with PrestaShop 1.7.1
-- [ ] Backward compatible with PrestaShop 1.6.1
+- [x] PrestaShop 1.6.1+ compatible
+- [x] PrestaShop 1.7+ compatible
 
 See the [open issues](https://github.com/MathiasReker/blmvuln/issues) for a complete list of proposed features (and
 known

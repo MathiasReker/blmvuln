@@ -25,7 +25,7 @@ final class RestoreFiles implements ScannerInterface
 
     private $files;
 
-    public function __construct($files)
+    public function __construct(array $files)
     {
         $this->files = $files;
     }
@@ -41,6 +41,10 @@ final class RestoreFiles implements ScannerInterface
 
             if (file_exists($currentFile)) {
                 $originalFile = $originalRoot . $file;
+
+                if (!is_file($originalFile)) {
+                    continue;
+                }
 
                 if ($this->isDifferent($originalFile, $currentFile)) {
                     $this->infectedFiles[] = $file;

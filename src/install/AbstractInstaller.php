@@ -54,7 +54,7 @@ abstract class AbstractInstaller
 
     abstract public function execute(): bool;
 
-    protected function displayError(string $error): void
+    protected function displayError(string $error)
     {
         http_response_code(400);
 

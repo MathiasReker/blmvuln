@@ -27,7 +27,7 @@ final class Uninstaller extends AbstractInstaller
         return $this->uninstallTab();
     }
 
-    private function uninstallConfig(): void
+    private function uninstallConfig()
     {
         if (empty($this->fieldValues)) {
             return;

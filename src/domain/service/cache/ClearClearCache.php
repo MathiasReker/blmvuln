@@ -19,21 +19,8 @@ use Tools;
 
 final class ClearClearCache implements ClearCacheInterface
 {
-    public function all(): void
+    public function all()
     {
         Tools::clearSmartyCache();
-
-        Tools::clearSf2Cache('dev');
-
-        Tools::clearSf2Cache('prod');
-
-        self::regenerateCache();
-    }
-
-    private function regenerateCache(): void
-    {
-        Tools::generateIndex();
-
-        Category::regenerateEntireNtree();
     }
 }

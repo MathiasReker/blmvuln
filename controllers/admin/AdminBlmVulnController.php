@@ -27,7 +27,7 @@ final class AdminBlmVulnController extends ModuleAdminController
     /**
      * @var string
      */
-    private const SUBMIT_NAME = 'submitConfig';
+    const SUBMIT_NAME = 'submitConfig';
 
     /**
      * @var bool
@@ -43,7 +43,7 @@ final class AdminBlmVulnController extends ModuleAdminController
         return $this->renderAdminForm();
     }
 
-    private function fixVulnerabilities(): void
+    private function fixVulnerabilities()
     {
         (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->fix();
 
