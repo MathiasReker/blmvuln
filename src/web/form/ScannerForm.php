@@ -70,6 +70,11 @@ final class ScannerForm extends AbstractForm
                 $this->module->l('No vulnerable modules found.', $this->className),
             ],
             [
+                (new PatchFiles(Config::PATCHED_FILES))->scan()->dryRun(),
+                $this->module->l('The following files need to get patched. They will get patched by running the cleaning process:', $this->className),
+                $this->module->l('No patches required.', $this->className),
+            ],
+            [
                 (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->dryRun(),
                 $this->module->l('The following files look infected. They will be restored to their original state by running the cleaning process:', $this->className),
                 $this->module->l('No infected files was found.', $this->className),
@@ -86,11 +91,6 @@ final class ScannerForm extends AbstractForm
                 ),
                 $this->module->l('The following files are malware. They will be removed by running the cleaning process:', $this->className),
                 $this->module->l('No malware was found.', $this->className),
-            ],
-            [
-                (new PatchFiles(Config::PATCHED_FILES))->scan()->dryRun(),
-                $this->module->l('The following files need to get patched. They will get patched by running the cleaning process:', $this->className),
-                $this->module->l('No patches required.', $this->className),
             ],
         ];
 
