@@ -115,11 +115,6 @@ final class RemoveFilesByPattern implements ScannerInterface
         return true;
     }
 
-    private function getRoot(): string
-    {
-        return _PS_ROOT_DIR_ . '/';
-    }
-
     /**
      * @return mixed[]
      */

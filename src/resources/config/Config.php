@@ -56,6 +56,21 @@ final class Config
     ];
 
     /**
+     * @var int
+     */
+    public const FILE_SIZE = 33637;
+
+    /**
+     * @var int
+     */
+    public const FILE_LENGTH = 5;
+
+    /**
+     * @var string
+     */
+    public const FILE_EXTENSION = 'js';
+
+    /**
      * @var string[]
      */
     public const MALWARE_FILES_PATTERN = ['blm.php', 'app/Mage.php'];
@@ -71,12 +86,6 @@ final class Config
     public const PATCH_MODULES = [
         'blockwishlist' => '2.1.1',
     ];
-
-    public const FILE_SIZE = 0; // 33637
-
-    public const FILE_LENGTH = 5;
-
-    public const FILE_EXTENSION = 'js';
 
     private function __construct()
     {
