@@ -23,7 +23,7 @@ This module can fix the vulnerability.
 checkout with a fake one. The module finds the infected files by patterns, replaces them with the original files, and
 deletes malware files added by the attacker.
 
-[![An old rock in the desert](https://user-images.githubusercontent.com/26626066/180741513-93b26d57-f89f-41f6-9a77-9dfa152380d3.png "Screenshot")]([https://user-images.githubusercontent.com/26626066/180741513-93b26d57-f89f-41f6-9a77-9dfa152380d3.png))
+[![Screenshot](https://user-images.githubusercontent.com/26626066/180741513-93b26d57-f89f-41f6-9a77-9dfa152380d3.png "Screenshot")]([https://user-images.githubusercontent.com/26626066/180741513-93b26d57-f89f-41f6-9a77-9dfa152380d3.png))
 
 ### Install the module
 
