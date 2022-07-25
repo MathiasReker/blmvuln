@@ -20,7 +20,9 @@ here: [https://build.prestashop.com/news/major-security-vulnerability-on-prestas
 
 This module can fix the vulnerability.
 
-The module is also designed to remove malware from infected websites! A typical attack where the attacker replaces the checkout with a fake one. The module finds the infected files by patterns, replaces them with the original files, and deletes some malware files added by the attacker.
+The module is also designed to remove malware from infected websites! A typical attack where the attacker replaces the
+checkout with a fake one. The module finds the infected files by patterns, replaces them with the original files, and
+deletes malware files added by the attacker.
 
 [![An old rock in the desert](https://user-images.githubusercontent.com/26626066/180667355-5731989b-f917-497e-b459-7488b1b8576d.png "Screenshot")]([https://www.flickr.com/photos/beaurogers/31833779864/in/photolist-Qv3rFw-34mt9F-a9Cmfy-5Ha3Zi-9msKdv-o3hgjr-hWpUte-4WMsJ1-KUQ8N-deshUb-vssBD-6CQci6-8AFCiD-zsJWT-nNfsgB-dPDwZJ-bn9JGn-5HtSXY-6CUhAL-a4UTXB-ugPum-KUPSo-fBLNm-6CUmpy-4WMsc9-8a7D3T-83KJev-6CQ2bK-nNusHJ-a78rQH-nw3NvT-7aq2qf-8wwBso-3nNceh-ugSKP-4mh4kh-bbeeqH-a7biME-q3PtTf-brFpgb-cg38zw-bXMZc-nJPELD-f58Lmo-bXMYG-bz8AAi-bxNtNT-bXMYi-bXMY6-bXMYv](https://user-images.githubusercontent.com/26626066/180667355-5731989b-f917-497e-b459-7488b1b8576d.png))
 
@@ -28,21 +30,19 @@ The module is also designed to remove malware from infected websites! A typical 
 
 1. Download the latest version of the module: https://github.com/MathiasReker/blmvuln/releases/latest
 
-2. The installation is 100 % according to PrestaShop's standards:
+2. Login into your shop's back office
 
+3. Go to "Module Manager"
 
-    Login into your shop's back office
-    Go to "Module Manager"
-    Click on "Upload a Module"
-    Upload and install the module
+4. Click on "Upload a Module"
+
+5. Upload and install the module
 
 ## Usage
 
-Open the module and click on "Run the cleaning process".
+1. Open the module and click on "Run the cleaning process".
 
-That's it!
-
-After running the cleaning process, you can uninstall the module.
+2. After running the cleaning process, you can uninstall the module.
 
 ## Compatibility
 

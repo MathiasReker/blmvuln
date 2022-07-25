@@ -66,13 +66,13 @@ final class ScannerForm extends AbstractForm
         $sections = [
             [
                 $modules,
-                $this->module->l('You are vulnerable. You must upgrade the following modules manually:', $this->className),
-                $this->module->l('No vulnerable modules found'),
+                $this->module->l('Your website is vulnerable. You must upgrade the following modules manually:', $this->className),
+                $this->module->l('No vulnerable modules found.', $this->className),
             ],
             [
                 (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->dryRun(),
-                $this->module->l('The following files looks infected. They will be restored to its original state by running the cleaning process.', $this->className),
-                $this->module->l('No infected was files found.', $this->className),
+                $this->module->l('The following files look infected. They will be restored to their original state by running the cleaning process:', $this->className),
+                $this->module->l('No infected files was found.', $this->className),
             ],
             [
                 array_merge(
