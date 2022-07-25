@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-use PrestaShop\Module\BlmVuln\domain\service\cache\ClearClearCache;
+use PrestaShop\Module\BlmVuln\domain\service\cache\ClearSmartyCache;
 use PrestaShop\Module\BlmVuln\domain\service\form\Form;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchFiles;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFiles;
@@ -47,9 +47,7 @@ final class AdminBlmVulnController extends ModuleAdminController
     {
         (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->fix();
 
-        (new RemoveFiles(Config::MALWARE_FILES_PATTERN))->scan()->fix();
-
-        Configuration::updateGlobalValue('PS_SMARTY_CACHING_TYPE', 'filesystem');
+        (new RemoveFiles(array_merge(Config::MALWARE_FILES_PATTERN, Config::CACHE_FILES)))->scan()->fix();
 
         (new PatchFiles(Config::PATCHED_FILES))->scan()->fix();
 
@@ -60,7 +58,7 @@ final class AdminBlmVulnController extends ModuleAdminController
             ->scan()
             ->fix();
 
-        (new ClearClearCache())->all();
+        (new ClearSmartyCache())->all();
     }
 
     private function renderAdminForm(): string

@@ -59,6 +59,13 @@ final class Config
     /**
      * @var string[]
      */
+    const CACHE_FILES = [
+        'cache/class_index.php',
+    ];
+
+    /**
+     * @var string[]
+     */
     const PATCHED_FILES = ['classes/Smarty/SmartyCacheResourceMysql.php'];
 
     /**
