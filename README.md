@@ -25,7 +25,7 @@ deletes malware files added by the attacker.
 
 [![Screenshot](https://user-images.githubusercontent.com/26626066/180741513-93b26d57-f89f-41f6-9a77-9dfa152380d3.png "Screenshot")]([https://user-images.githubusercontent.com/26626066/180741513-93b26d57-f89f-41f6-9a77-9dfa152380d3.png)
 
-### Install the module
+## Install the module
 
 1. Download the latest version of the module: https://github.com/MathiasReker/blmvuln/releases/latest
 
