@@ -10,7 +10,7 @@ This module can scan your website for vulnerability and help you get a safe envi
 
 The module is also designed to remove malware from infected websites!
 
-> Step 1: Download the latest version of the module: https://github.com/MathiasReker/blm-vlun/releases/latest
+> Step 1: Download the latest version of the module: https://github.com/MathiasReker/blmvuln/releases/latest
 >
 > Step 2: Install the module on your PrestaShop website.
 >
