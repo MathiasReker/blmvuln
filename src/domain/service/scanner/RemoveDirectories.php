@@ -112,9 +112,4 @@ final class RemoveDirectories implements ScannerInterface
             }
         }
     }
-
-    private function getRoot(): string
-    {
-        return _PS_ROOT_DIR_ . '/';
-    }
 }

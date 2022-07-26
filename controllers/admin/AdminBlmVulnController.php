@@ -47,15 +47,13 @@ final class AdminBlmVulnController extends ModuleAdminController
 
     private function fixVulnerabilities()
     {
-        (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->fix();
+        (new RestoreFiles(Config::POSSIBLE_INFECTED_FILES))->scan()->fix();
 
         (new RemoveFiles(array_merge(Config::MALWARE_FILES_PATTERN, Config::CACHE_FILES)))->scan()->fix();
 
-        (new PatchFiles(Config::PATCHED_FILES))->scan()->fix();
-
         (new RemoveFilesByPattern(Config::INFECTED_JS_PATHS))
             ->setFilesize(Config::MALWARE_JS_FILE_SIZE)
-            ->setFileLength(Config::MALWARE_JS_FILE_LENGTH)
+            ->setFileLength(Config::MALWARE_JS_FILE_LENGTHS)
             ->setFileExtension(Config::MALWARE_JS_FILE_EXTENSION)
             ->scan()
             ->fix();

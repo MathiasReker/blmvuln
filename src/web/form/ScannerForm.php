@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace PrestaShop\Module\BlmVuln\web\form;
 
 use PrestaShop\Module\BlmVuln\domain\service\scanner\FilePermissions;
-use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchFiles;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchModules;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveDirectories;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFiles;
@@ -72,22 +71,17 @@ final class ScannerForm extends AbstractForm
                 $this->module->l('No vulnerable modules found.', $this->className),
             ],
             [
-                (new PatchFiles(Config::PATCHED_FILES))->scan()->dryRun(),
-                $this->module->l('The following files need to get patched. They will get patched by running the cleaning process:', $this->className),
-                $this->module->l('No patches required.', $this->className),
-            ],
-            [
                 array_merge(
-                    (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->dryRun(),
+                    (new RestoreFiles(Config::POSSIBLE_INFECTED_FILES))->scan()->dryRun(),
                     (new RemoveFiles(Config::MALWARE_FILES_PATTERN))->scan()->dryRun(),
                     (new RemoveFilesByPattern(Config::INFECTED_JS_PATHS))
                         ->setFilesize(Config::MALWARE_JS_FILE_SIZE)
-                        ->setFileLength(Config::MALWARE_JS_FILE_LENGTH)
+                        ->setFileLength(Config::MALWARE_JS_FILE_LENGTHS)
                         ->setFileExtension(Config::MALWARE_JS_FILE_EXTENSION)
                         ->scan()
                         ->dryRun()
                 ),
-                $this->module->l('The following files looks infected. They will be restored or removed by running the cleaning process:', $this->className),
+                $this->module->l('The following files are infected or vulnerable. They will be either restored, patched or removed by running the cleaning process:', $this->className),
                 $this->module->l('No infected files was found.', $this->className),
             ],
             [

@@ -103,7 +103,7 @@ final class Config
      *
      * @var string[]
      */
-    const INFECTED_FILES_PATTERN = [
+    const POSSIBLE_INFECTED_FILES = [
         'classes/Controller.php',
         'classes/controller/Controller.php',
         'classes/controller/FrontController.php',
@@ -130,16 +130,6 @@ final class Config
     ];
 
     /**
-     * Patched files for the vulnerability. Updating this list require /patch to be updated as well. Please open an ISSUE in this case.
-     *
-     * @var string[]
-     */
-    const PATCHED_FILES = [
-        'classes/Smarty/SmartyCacheResourceMysql.php',
-        'classes/SmartyCacheResourceMysql.php',
-    ];
-
-    /**
      * Paths of known infected JS file.
      *
      * @var string[]
@@ -161,7 +151,7 @@ final class Config
      *
      * @var int
      */
-    const MALWARE_JS_FILE_LENGTH = [
+    const MALWARE_JS_FILE_LENGTHS = [
         5,
         6,
     ];
