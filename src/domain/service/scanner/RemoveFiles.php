@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\BlmVuln\domain\service\scanner;
 
-final class RemoveFiles implements ScannerInterface
+final class RemoveFiles extends AbstractScanner implements ScannerInterface
 {
     /**
      * @var string[]
@@ -67,10 +67,5 @@ final class RemoveFiles implements ScannerInterface
     public function dryRun(): array
     {
         return $this->infectedFiles;
-    }
-
-    private function getRoot(): string
-    {
-        return _PS_ROOT_DIR_ . '/';
     }
 }

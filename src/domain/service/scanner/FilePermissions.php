@@ -14,11 +14,12 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\BlmVuln\domain\service\scanner;
 
+use FilesystemIterator;
 use PrestaShop\Module\BlmVuln\resources\config\Config;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-final class FilePermissions implements ScannerInterface
+final class FilePermissions extends AbstractScanner implements ScannerInterface
 {
     /**
      * @var string[]
@@ -42,14 +43,44 @@ final class FilePermissions implements ScannerInterface
         foreach ($this->directories as $directory) {
             $path = $root . $directory;
 
-            if (!is_dir($path)) {
-                continue;
+            if (is_dir($path)) {
+                $this->scanDirectory($path);
             }
-
-            $this->scanDirectory($path);
         }
 
         return $this;
+    }
+
+    private function scanDirectory(string $directory)
+    {
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($directory, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST,
+            RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
+        );
+
+        $isWindows = $this->isWindows();
+
+        foreach ($iterator as $info) {
+            $filePermissions = mb_substr(sprintf('%o', $info->getPerms()), -4);
+
+            if ($info->isDir()) {
+                if (\in_array($filePermissions, Config::ALLOWED_FOLDER_PERMISSIONS, true)) {
+                    continue;
+                }
+
+                // On a Windows OS, don't bother for chmod 777
+                if ($isWindows && '0777' === $filePermissions) {
+                    continue;
+                }
+            } else {
+                if (\in_array($filePermissions, Config::ALLOWED_FILE_PERMISSIONS, true)) {
+                    continue;
+                }
+            }
+
+            $this->insecurePermissionFiles[] = $info->getPathname();
+        }
     }
 
     public function fix(): bool
@@ -73,42 +104,10 @@ final class FilePermissions implements ScannerInterface
         return $this->insecurePermissionFiles;
     }
 
-    private function getRoot(): string
+    private function isWindows(): bool
     {
-        return _PS_ROOT_DIR_ . '/';
-    }
-
-    private function scanDirectory(string $path)
-    {
-        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), 1);
-
-        foreach ($iterator as $info) {
-
-            // Don't process folders starting with a dot
-            if ('.' === mb_substr(basename($info->getPathname()), 0, 1)) {
-                continue;
-            }
-
-            $filePermissions = mb_substr(sprintf('%o', $info->getPerms()), -4);
-
-            if ($info->isDir()) {
-                if (\in_array($filePermissions, Config::ALLOWED_FOLDER_PERMISSIONS, true)) {
-                    continue;
-                }
-
-                // On a Windows OS, don't bother for chmod 777
-                if (('WIN' === mb_strtoupper(
-                    mb_substr(\PHP_OS, 0, 3)
-                )) && ('0777' === $filePermissions)) {
-                    continue;
-                }
-            } else {
-                if (\in_array($filePermissions, Config::ALLOWED_FILE_PERMISSIONS, true)) {
-                    continue;
-                }
-            }
-
-            $this->insecurePermissionFiles[] = $info->getPathname();
-        }
+        return 'WIN' === mb_strtoupper(
+                mb_substr(\PHP_OS, 0, 3)
+            );
     }
 }

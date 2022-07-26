@@ -59,9 +59,9 @@ final class Config
     const ALLOWED_FILE_PERMISSIONS = [
         '0400',
         '0444',
-        '0666',
-        '0644',
         '0640',
+        '0644',
+        '0666',
     ];
 
     /**
@@ -70,8 +70,8 @@ final class Config
      * @var string[]
      */
     const ALLOWED_FOLDER_PERMISSIONS = [
+        '0750',
         '0755',
-        '0750'
     ];
 
     /**
@@ -80,11 +80,14 @@ final class Config
      * @var string[]
      */
     const PERMISSION_DIRECTORIES = [
-        'admin-dev',
+        'Adapter',
         'classes',
         'controllers',
+        'Core',
+        'css',
         'docs',
         'download',
+        'img',
         'img',
         'js',
         'localization',
@@ -94,7 +97,6 @@ final class Config
         'themes',
         'tools',
         'translations',
-        'var',
         'webservice',
     ];
 
@@ -113,11 +115,11 @@ final class Config
         'classes/Hook.php',
         'classes/module/Module.php',
         'classes/modules/Module.php',
+        'config/smarty.config.inc.php',
         'controllers/admin/AdminLoginController.php',
         'controllers/AdminLoginController.php',
         'controllers/front/IndexController.php',
         'tools/smarty/sysplugins/smarty_internal_templatebase.php',
-        'config/smarty.config.inc.php',
     ];
 
     /**
@@ -149,7 +151,7 @@ final class Config
     /**
      * File length of a known infected JS file.
      *
-     * @var int
+     * @var int[]
      */
     const MALWARE_JS_FILE_LENGTHS = [
         5,
@@ -166,32 +168,26 @@ final class Config
     /**
      * @var string[]
      */
-    const MALWARE_FILES_PATTERN = [
-        'blm.php',
-        'app/Mage.php',
+    const MALWARE_FILES = [
         '0x666.php',
-        'IndoXploit.php',
-        'Sh3ll.php',
-        'XsamXadoo_Bot.php',
-        'XsamXadoo_Bot_All.php',
-        'XsamXadoo_deface.php',
-        'Xsam_Xadoo.html',
         'anonsha1a0.php',
+        'app/Mage.php',
         'atx_bot.php',
         'azzoulshell.php',
         'b374k.php',
         'bajatax_xsam.php',
         'bigdump.php',
+        'blm.php',
         'bypass.php',
-        'c100.php',
         'c99.php',
+        'c100.php',
         'cPanelCracker.php',
-        'composer.json',
         'database.php',
         'efi.php',
         'f.php',
         'hacked.php',
         'httptest.php',
+        'IndoXploit.php',
         'info.php',
         'kill.php',
         'lfishell.php',
@@ -206,6 +202,7 @@ final class Config
         'r00t.php',
         'r57.php',
         'sado.php',
+        'Sh3ll.php',
         'shellwow.php',
         'simulasi.php',
         'sssp.php',
@@ -215,30 +212,34 @@ final class Config
         'wawa.php',
         'wolfm.php',
         'wso.php',
-        'xGSx.php',
         'xaishell.php',
         'xcontact182.php',
-        'xsam_xadoo_bot.php',
+        'xGSx.php',
         'xsambot.php',
         'xsambot2.php',
         'xsamxadoo.php',
+        'xsamxadoo95.php',
         'xsamxadoo101.php',
         'xsamxadoo102.php',
-        'xsamxadoo95.php',
+        'XsamXadoo_Bot.php',
+        'XsamXadoo_Bot_All.php',
+        'XsamXadoo_deface.php',
+        'Xsam_Xadoo.html',
+        'xsam_xadoo_bot.php',
     ];
 
     /**
-     * Directories known for PHP unit test vulnerability.
+     * Directories known for phpunit vulnerability.
      *
      * @var string[]
      */
-    const VULNERABLE_DIRECTORIES_PATTERN = [
-        _PS_ROOT_DIR_ . '/vendor/',
+    const VULNERABLE_ROOT_DIRECTORIES = [
         _PS_MODULE_DIR_,
+        _PS_ROOT_DIR_ . '/vendor/',
     ];
 
     /**
-     * Directories to be removed.
+     * Directory to be removed.
      *
      * @var string
      */
@@ -249,9 +250,9 @@ final class Config
      *
      * @var array<string, string>
      */
-    const PATCH_MODULES = [
-        'blockwishlist' => '2.1.1',
+    const VULNERABLE_MODULES = [
         'bamegamenu' => '1.0.32',
+        'blockwishlist' => '2.1.1',
     ];
 
     private function __construct()

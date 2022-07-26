@@ -62,7 +62,7 @@ final class ScannerForm extends AbstractForm
     {
         $result = '';
 
-        $modules = (new PatchModules(Config::PATCH_MODULES))->scan()->dryRun();
+        $modules = (new PatchModules(Config::VULNERABLE_MODULES))->scan()->dryRun();
 
         $sections = [
             [
@@ -73,7 +73,7 @@ final class ScannerForm extends AbstractForm
             [
                 array_merge(
                     (new RestoreFiles(Config::POSSIBLE_INFECTED_FILES))->scan()->dryRun(),
-                    (new RemoveFiles(Config::MALWARE_FILES_PATTERN))->scan()->dryRun(),
+                    (new RemoveFiles(Config::MALWARE_FILES))->scan()->dryRun(),
                     (new RemoveFilesByPattern(Config::INFECTED_JS_PATHS))
                         ->setFilesize(Config::MALWARE_JS_FILE_SIZE)
                         ->setFileLength(Config::MALWARE_JS_FILE_LENGTHS)
@@ -86,13 +86,13 @@ final class ScannerForm extends AbstractForm
             ],
             [
                 array_merge(
-                    (new RemoveDirectories(Config::VULNERABLE_DIRECTORIES_PATTERN))
-                        ->setFolder(Config::VULNERABLE_DIRECTORY)
+                    (new RemoveDirectories(Config::VULNERABLE_ROOT_DIRECTORIES))
+                        ->setDirectory(Config::VULNERABLE_DIRECTORY)
                         ->setRecursive(false)
                         ->scan()
                         ->dryRun(),
-                    (new RemoveDirectories(Config::VULNERABLE_DIRECTORIES_PATTERN))
-                        ->setFolder(Config::VULNERABLE_DIRECTORY)
+                    (new RemoveDirectories(Config::VULNERABLE_ROOT_DIRECTORIES))
+                        ->setDirectory(Config::VULNERABLE_DIRECTORY)
                         ->setRecursive(true)
                         ->scan()
                         ->dryRun()

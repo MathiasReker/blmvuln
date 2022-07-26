@@ -16,7 +16,7 @@ namespace PrestaShop\Module\BlmVuln\domain\service\scanner;
 
 use PrestaShop\Module\BlmVuln\resources\config\Config;
 
-final class RestoreFiles implements ScannerInterface
+final class RestoreFiles extends AbstractScanner implements ScannerInterface
 {
     /**
      * @var string[]
@@ -84,11 +84,6 @@ final class RestoreFiles implements ScannerInterface
     private function getOriginalRoot(): string
     {
         return _PS_MODULE_DIR_ . Config::MODULE_NAME . '/bin/' . _PS_VERSION_ . '/';
-    }
-
-    private function getRoot(): string
-    {
-        return _PS_ROOT_DIR_ . '/';
     }
 
     private function isDifferance(string $file1, string $file2): bool

@@ -29,7 +29,7 @@ final class RemoveDirectories implements ScannerInterface
     /**
      * @var string[]
      */
-    private $scanDirectories;
+    private $directories;
 
     /**
      * @var bool
@@ -41,9 +41,9 @@ final class RemoveDirectories implements ScannerInterface
      */
     private $folder;
 
-    public function __construct(array $scanDirectories)
+    public function __construct(array $directories)
     {
-        $this->scanDirectories = $scanDirectories;
+        $this->directories = $directories;
     }
 
     public function setRecursive(bool $isRecursive): self
@@ -53,7 +53,7 @@ final class RemoveDirectories implements ScannerInterface
         return $this;
     }
 
-    public function setFolder(string $folder): self
+    public function setDirectory(string $folder): self
     {
         $this->folder = $folder;
 
@@ -96,7 +96,7 @@ final class RemoveDirectories implements ScannerInterface
 
     private function scanRecursive()
     {
-        foreach ($this->scanDirectories as $scanDirectory) {
+        foreach ($this->directories as $scanDirectory) {
             if (!is_dir($scanDirectory)) {
                 continue;
             }
@@ -117,15 +117,15 @@ final class RemoveDirectories implements ScannerInterface
 
     private function scanNonRecursive()
     {
-        foreach ($this->scanDirectories as $scanDirectory) {
-            if (!is_dir($scanDirectory)) {
+        foreach ($this->directories as $directory) {
+            if (!is_dir($directory)) {
                 continue;
             }
 
-            $fullPath = $scanDirectory . $this->folder;
+            $path = $directory . $this->folder;
 
-            if (is_dir($fullPath)) {
-                $this->vulnerableDirectories[] = $fullPath;
+            if (is_dir($path)) {
+                $this->vulnerableDirectories[] = $path;
             }
         }
     }
