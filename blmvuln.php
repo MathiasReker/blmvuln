@@ -10,8 +10,6 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
-
 final class BlmVuln extends Module
 {
     public function __construct()
