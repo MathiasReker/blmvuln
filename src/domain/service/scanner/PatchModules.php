@@ -19,6 +19,9 @@ use Tools;
 
 final class PatchModules implements ScannerInterface
 {
+    /**
+     * @var string[]
+     */
     public $modules;
 
     /**
@@ -26,7 +29,7 @@ final class PatchModules implements ScannerInterface
      */
     private $vulnerableModules = [];
 
-    public function __construct($modules)
+    public function __construct(array $modules)
     {
         $this->modules = $modules;
     }

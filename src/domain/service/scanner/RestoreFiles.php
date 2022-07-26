@@ -19,10 +19,13 @@ use PrestaShop\Module\BlmVuln\resources\config\Config;
 final class RestoreFiles implements ScannerInterface
 {
     /**
-     * @var mixed[]
+     * @var string[]
      */
     private $infectedFiles = [];
 
+    /**
+     * @var string[]
+     */
     private $files;
 
     public function __construct(array $files)
@@ -71,7 +74,7 @@ final class RestoreFiles implements ScannerInterface
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public function dryRun(): array
     {

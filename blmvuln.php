@@ -18,7 +18,7 @@ final class BlmVuln extends Module
 
         $this->tab = 'administration';
 
-        $this->version = '2.0.0';
+        $this->version = '2.1.1';
 
         $this->author = 'Mathias R.';
 

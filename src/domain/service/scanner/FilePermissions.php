@@ -25,6 +25,9 @@ final class FilePermissions implements ScannerInterface
      */
     private $insecurePermissionFiles = [];
 
+    /**
+     * @var string[]
+     */
     private $directories;
 
     public function __construct(array $directories)

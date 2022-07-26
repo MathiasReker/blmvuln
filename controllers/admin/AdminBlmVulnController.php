@@ -15,7 +15,6 @@ declare(strict_types=1);
 use PrestaShop\Module\BlmVuln\domain\service\cache\ClearSmartyCache;
 use PrestaShop\Module\BlmVuln\domain\service\form\Form;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\FilePermissions;
-use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchFiles;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveDirectories;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFiles;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFilesByPattern;

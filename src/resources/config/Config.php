@@ -188,7 +188,6 @@ final class Config
         'cPanelCracker.php',
         'composer.json',
         'database.php',
-        'docker-compose.yml',
         'efi.php',
         'f.php',
         'hacked.php',

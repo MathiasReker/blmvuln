@@ -17,13 +17,16 @@ namespace PrestaShop\Module\BlmVuln\domain\service\scanner;
 final class RemoveFiles implements ScannerInterface
 {
     /**
-     * @var mixed[]
+     * @var string[]
      */
     private $infectedFiles = [];
 
+    /**
+     * @var string[]
+     */
     private $files;
 
-    public function __construct($files)
+    public function __construct(array $files)
     {
         $this->files = $files;
     }
@@ -36,7 +39,7 @@ final class RemoveFiles implements ScannerInterface
             $currentFile = $root . $file;
 
             if (file_exists($currentFile)) {
-                $this->infectedFiles[] = $file;
+                $this->infectedFiles[] = $currentFile;
             }
         }
 
@@ -51,7 +54,7 @@ final class RemoveFiles implements ScannerInterface
 
         foreach ($this->infectedFiles as $infectedFile) {
             if (file_exists($infectedFile)) {
-                unlink($this->getRoot() . $infectedFile);
+                unlink($infectedFile);
             }
         }
 
@@ -59,7 +62,7 @@ final class RemoveFiles implements ScannerInterface
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public function dryRun(): array
     {

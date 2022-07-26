@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace PrestaShop\Module\BlmVuln\domain\service\form;
 
 use Configuration;
+use HelperForm;
 use Language;
 use PrestaShop\Module\BlmVuln\domain\service\util\ContextService;
 use PrestaShop\Module\BlmVuln\resources\config\Config;
@@ -23,9 +24,12 @@ use Tools;
 
 final class Form implements FormInterface
 {
+    /**
+     * @var HelperForm
+     */
     private $helperForm;
 
-    public function __construct($helperForm)
+    public function __construct(HelperForm $helperForm)
     {
         $this->helperForm = $helperForm;
     }
@@ -60,7 +64,7 @@ final class Form implements FormInterface
     }
 
     /**
-     * @return array<string,mixed>
+     * @return array<string,string>
      */
     private function getConfigFormValues(): array
     {

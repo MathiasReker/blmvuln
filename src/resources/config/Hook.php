@@ -21,7 +21,7 @@ final class Hook
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public static function getHooks(): array
     {

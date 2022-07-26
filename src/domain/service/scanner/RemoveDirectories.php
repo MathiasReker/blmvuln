@@ -26,10 +26,19 @@ final class RemoveDirectories implements ScannerInterface
      */
     private $vulnerableDirectories = [];
 
+    /**
+     * @var string[]
+     */
     private $scanDirectories;
 
+    /**
+     * @var bool
+     */
     private $isRecursive;
 
+    /**
+     * @var string
+     */
     private $folder;
 
     public function __construct(array $scanDirectories)

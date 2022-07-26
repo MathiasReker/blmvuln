@@ -19,7 +19,7 @@ use SplFileInfo;
 final class RemoveFilesByPattern implements ScannerInterface
 {
     /**
-     * @var mixed[]
+     * @var string[]
      */
     private $infectedFiles = [];
 

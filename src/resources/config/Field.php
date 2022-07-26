@@ -21,7 +21,7 @@ final class Field
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public static function getPreconfiguredValues(): array
     {
@@ -29,7 +29,7 @@ final class Field
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public static function getFieldValues(): array
     {

@@ -81,7 +81,7 @@ final class ScannerForm extends AbstractForm
                         ->scan()
                         ->dryRun()
                 ),
-                $this->module->l('The following files are infected or vulnerable. They will be either restored, patched or removed by running the cleaning process:', $this->className),
+                $this->module->l('The following files look infected or vulnerable. They will be either restored, patched or removed by running the cleaning process:', $this->className),
                 $this->module->l('No infected files was found.', $this->className),
             ],
             [
