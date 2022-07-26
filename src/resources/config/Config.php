@@ -88,7 +88,6 @@ final class Config
         'docs',
         'download',
         'img',
-        'img',
         'js',
         'localization',
         'mails',
