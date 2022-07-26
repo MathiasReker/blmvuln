@@ -14,9 +14,6 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\BlmVuln\domain\service\scanner;
 
-use Module;
-use Tools;
-
 abstract class AbstractScanner
 {
     protected function getRoot(): string
