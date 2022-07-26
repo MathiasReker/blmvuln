@@ -4,7 +4,7 @@
  *
  * @author Mathias Reker
  * @copyright Mathias Reker
- * @license MIT
+ * @license MIT License
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\BlmVuln\web\form;
 
+use PrestaShop\Module\BlmVuln\domain\service\scanner\FilePermissions;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchFiles;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\PatchModules;
+use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveDirectories;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFiles;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RemoveFilesByPattern;
 use PrestaShop\Module\BlmVuln\domain\service\scanner\RestoreFiles;
@@ -82,7 +84,7 @@ final class ScannerForm extends AbstractForm
             [
                 array_merge(
                     (new RemoveFiles(Config::MALWARE_FILES_PATTERN))->scan()->dryRun(),
-                    (new RemoveFilesByPattern(Config::getPathsInfectedJsFiles()))
+                    (new RemoveFilesByPattern(Config::INFECTED_JS_PATHS))
                         ->setFilesize(Config::FILE_SIZE)
                         ->setFileLength(Config::FILE_LENGTH)
                         ->setFileExtension(Config::FILE_EXTENSION)
@@ -91,6 +93,30 @@ final class ScannerForm extends AbstractForm
                 ),
                 $this->module->l('The following files are malware. They will be removed by running the cleaning process:', $this->className),
                 $this->module->l('No malware was found.', $this->className),
+            ],
+            [
+                array_merge(
+                    (new RemoveDirectories(Config::SCAN_DIRECTORIES))
+                        ->setFolder(Config::REMOVE_DIRECTORY)
+                        ->setRecursive(false)
+                        ->scan()
+                        ->dryRun(),
+                    (new RemoveDirectories(Config::SCAN_DIRECTORIES))
+                        ->setFolder(Config::REMOVE_DIRECTORY)
+                        ->setRecursive(true)
+                        ->scan()
+                        ->dryRun()
+                ),
+                $this->module->l('The following folders look vulnerable. They will be removed by running the cleaning process:', $this->className),
+                $this->module->l('No vulnerable folders was found.', $this->className),
+            ],
+            [
+                (new FilePermissions(Config::PERMISSION_DIRECTORIES))
+                    ->scan()
+                    ->fix(),
+                $this->module->l('The following file/folder permissions is insecure. They will be fixed by running the cleaning process:', $this->className
+                ),
+                $this->module->l('No insecure file/folder permissions was found.', $this->className),
             ],
         ];
 

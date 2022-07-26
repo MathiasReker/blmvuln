@@ -4,7 +4,7 @@
  *
  * @author Mathias Reker
  * @copyright Mathias Reker
- * @license MIT
+ * @license MIT License
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,9 +16,9 @@ namespace PrestaShop\Module\BlmVuln\domain\service\scanner;
 
 interface ScannerInterface
 {
-    public function dryRun();
+    public function dryRun(): array;
 
     public function scan();
 
-    public function fix();
+    public function fix(): bool;
 }

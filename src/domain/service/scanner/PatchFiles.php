@@ -4,7 +4,7 @@
  *
  * @author Mathias Reker
  * @copyright Mathias Reker
- * @license MIT
+ * @license MIT License
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +19,7 @@ use PrestaShop\Module\BlmVuln\resources\config\Config;
 final class PatchFiles implements ScannerInterface
 {
     /**
-     * @var mixed[]
+     * @var string[]
      */
     private $patchedFiles = [];
 
@@ -71,7 +71,7 @@ final class PatchFiles implements ScannerInterface
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public function dryRun(): array
     {

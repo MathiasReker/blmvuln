@@ -4,22 +4,40 @@
  *
  * @author Mathias Reker
  * @copyright Mathias Reker
- * @license MIT
+ * @license MIT License
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the blmvuln package.
+ *
+ * @author Mathias Reker
+ * @copyright Mathias Reker
+ * @license MIT
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 final class BlmVuln extends Module
 {
     public function __construct()
     {
         $this->name = 'blmvuln';
+
         $this->tab = 'administration';
+
         $this->version = '1.2.0';
+
         $this->author = 'Mathias R.';
+
         $this->need_instance = 0;
+
         $this->module_key = '';
+
         $this->bootstrap = true;
 
         parent::__construct();
@@ -27,7 +45,9 @@ final class BlmVuln extends Module
         $this->autoLoad();
 
         $this->displayName = $this->l('BLM vulnerability');
+
         $this->description = $this->l('This module aims to secure a website vulnerable to CVE-2022-31101.');
+
         $this->ps_versions_compliancy = [
             'min' => '1.6.1',
             'max' => _PS_VERSION_,
@@ -112,7 +132,11 @@ final class BlmVuln extends Module
      */
     private function redirectToModuleAdminController()
     {
-        $redirect = $this->context->link->getAdminLink(PrestaShop\Module\BlmVuln\resources\config\Config::CONTROLLER_NAME, true, false);
+        $redirect = $this->context->link->getAdminLink(
+            PrestaShop\Module\BlmVuln\resources\config\Config::CONTROLLER_NAME,
+            true,
+            false
+        );
 
         Tools::redirectAdmin($redirect);
     }

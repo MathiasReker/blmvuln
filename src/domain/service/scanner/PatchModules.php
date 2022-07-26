@@ -4,7 +4,7 @@
  *
  * @author Mathias Reker
  * @copyright Mathias Reker
- * @license MIT
+ * @license MIT License
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,7 +22,7 @@ final class PatchModules implements ScannerInterface
     public $modules;
 
     /**
-     * @var mixed[]
+     * @var string[]
      */
     private $vulnerableModules = [];
 
@@ -52,7 +52,7 @@ final class PatchModules implements ScannerInterface
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public function dryRun(): array
     {

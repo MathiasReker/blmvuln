@@ -4,7 +4,7 @@
  *
  * @author Mathias Reker
  * @copyright Mathias Reker
- * @license MIT
+ * @license MIT License
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -34,7 +34,7 @@ final class RemoveFilesByPattern implements ScannerInterface
     private $fileSize;
 
     /**
-     * @var int
+     * @var array
      */
     private $fileLength;
 
@@ -55,22 +55,18 @@ final class RemoveFilesByPattern implements ScannerInterface
         return $this;
     }
 
-    public function setFileLength(int $fileLength): self
+    public function setFileLength(array $fileLength): self
     {
         $this->fileLength = $fileLength;
 
         return $this;
     }
 
-    public function setFileExtension(string $fileExtension): self {
+    public function setFileExtension(string $fileExtension): self
+    {
         $this->fileExtension = $fileExtension;
 
         return $this;
-    }
-
-    private function fileExtensionLength(): int
-    {
-        return strlen($this->fileExtension) + 1;
     }
 
     public function scan(): self
@@ -85,7 +81,7 @@ final class RemoveFilesByPattern implements ScannerInterface
                     continue;
                 }
 
-                if (strlen(basename($file)) !== $this->fileLength + $fileExtensionLength) {
+                if (!\in_array(mb_strlen(basename($file)) - $fileExtensionLength, $this->fileLength, true)) {
                     continue;
                 }
 
@@ -116,10 +112,15 @@ final class RemoveFilesByPattern implements ScannerInterface
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public function dryRun(): array
     {
         return $this->infectedFiles;
+    }
+
+    private function fileExtensionLength(): int
+    {
+        return mb_strlen($this->fileExtension) + 1;
     }
 }

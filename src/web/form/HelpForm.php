@@ -4,7 +4,7 @@
  *
  * @author Mathias Reker
  * @copyright Mathias Reker
- * @license MIT
+ * @license MIT License
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -46,7 +46,10 @@ final class HelpForm extends AbstractForm
     {
         $buttons = [
             [$this->module->l('Need help?', $this->className), 'https://github.com/MathiasReker/blmvuln/issues/new'],
-            [$this->module->l('Want to donate?', $this->className), 'https://github.com/sponsors/MathiasReker?frequency=one-time&sponsor=MathiasReker'],
+            [
+                $this->module->l('Want to donate?', $this->className),
+                'https://github.com/sponsors/MathiasReker?frequency=one-time&sponsor=MathiasReker',
+            ],
             [$this->module->l('See all my modules', $this->className), 'https://addons.prestashop.com/221_shinetech'],
         ];
 
