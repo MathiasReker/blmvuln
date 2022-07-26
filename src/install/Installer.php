@@ -68,7 +68,7 @@ final class Installer extends AbstractInstaller
         return (new TabBuilder(new Tab()))
             ->module($this->module->name)
             ->displayName($this->module->displayName)
-            ->className(Config::CONTROLLER_NAME)
+            ->className(Config::ADMIN_CONTROLLER_NAME)
             ->parentClassName('IMPROVE')
             ->icon('whatshot')
             ->install();

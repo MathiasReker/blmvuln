@@ -54,9 +54,9 @@ final class AdminBlmVulnController extends ModuleAdminController
         (new PatchFiles(Config::PATCHED_FILES))->scan()->fix();
 
         (new RemoveFilesByPattern(Config::INFECTED_JS_PATHS))
-            ->setFilesize(Config::FILE_SIZE)
-            ->setFileLength(Config::FILE_LENGTH)
-            ->setFileExtension(Config::FILE_EXTENSION)
+            ->setFilesize(Config::MALWARE_JS_FILE_SIZE)
+            ->setFileLength(Config::MALWARE_JS_FILE_LENGTH)
+            ->setFileExtension(Config::MALWARE_JS_FILE_EXTENSION)
             ->scan()
             ->fix();
 
@@ -64,14 +64,14 @@ final class AdminBlmVulnController extends ModuleAdminController
             ->scan()
             ->fix();
 
-        (new RemoveDirectories(Config::SCAN_DIRECTORIES))
-            ->setFolder(Config::REMOVE_DIRECTORY)
+        (new RemoveDirectories(Config::VULNERABLE_DIRECTORIES_PATTERN))
+            ->setFolder(Config::VULNERABLE_DIRECTORY)
             ->setRecursive(false)
             ->scan()
             ->fix();
 
-        (new RemoveDirectories(Config::SCAN_DIRECTORIES))
-        ->setFolder(Config::REMOVE_DIRECTORY)
+        (new RemoveDirectories(Config::VULNERABLE_DIRECTORIES_PATTERN))
+        ->setFolder(Config::VULNERABLE_DIRECTORY)
             ->setRecursive(true)
             ->scan()
             ->fix();

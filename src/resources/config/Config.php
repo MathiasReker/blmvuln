@@ -17,48 +17,90 @@ namespace PrestaShop\Module\BlmVuln\resources\config;
 final class Config
 {
     /**
+     * Name of the module.
+     *
      * @var string
      */
     const MODULE_NAME = 'blmvuln';
 
     /**
+     * Name of admin controller.
+     *
      * @var string
      */
-    const CONTROLLER_NAME = 'AdminBlmVuln';
+    const ADMIN_CONTROLLER_NAME = 'AdminBlmVuln';
 
     /**
+     * Minimum required PHP version.
+     *
      * @var string
      */
     const MINIMUM_PHP_VERSION = '7.0';
 
     /**
+     * Default folder permissions.
+     *
      * @var int
      */
     const DEFAULT_MODE_FOLDER = 0755;
 
     /**
+     * Default file permissions.
+     *
      * @var int
      */
     const DEFAULT_MODE_FILES = 0644;
 
     /**
+     * Allowed file permissions.
+     *
      * @var string[]
      */
-    const ALLOWED_FILE_PERMISSIONS = ['0666', '0644', '0640'];
-
-    /**
-     * @var string[]
-     */
-    const ALLOWED_FOLDER_PERMISSIONS = ['0755', '0750'];
-
-    /**
-     * @var string[]
-     */
-    const PERMISSION_DIRECTORIES = [
-        'classes', 'controllers'
+    const ALLOWED_FILE_PERMISSIONS = [
+        '0400',
+        '0444',
+        '0666',
+        '0644',
+        '0640',
     ];
 
     /**
+     * Allowed folder permissions.
+     *
+     * @var string[]
+     */
+    const ALLOWED_FOLDER_PERMISSIONS = [
+        '0755',
+        '0750'
+    ];
+
+    /**
+     * Check file and folder permission for the following directories.
+     *
+     * @var string[]
+     */
+    const PERMISSION_DIRECTORIES = [
+        'admin-dev',
+        'classes',
+        'controllers',
+        'docs',
+        'download',
+        'img',
+        'js',
+        'localization',
+        'mails',
+        'pdf',
+        'src',
+        'themes',
+        'tools',
+        'translations',
+        'var',
+        'webservice',
+    ];
+
+    /**
+     * Known infected files. If this list is extended, the /bin must be updated. Please open an ISSUE in this case.
+     *
      * @var string[]
      */
     const INFECTED_FILES_PATTERN = [
@@ -79,6 +121,8 @@ final class Config
     ];
 
     /**
+     * Cache files.
+     *
      * @var string[]
      */
     const CACHE_FILES = [
@@ -86,6 +130,8 @@ final class Config
     ];
 
     /**
+     * Patched files for the vulnerability. Updating this list require /patch to be updated as well. Please open an ISSUE in this case.
+     *
      * @var string[]
      */
     const PATCHED_FILES = [
@@ -94,22 +140,38 @@ final class Config
     ];
 
     /**
-     * @var int
+     * Paths of known infected JS file.
+     *
+     * @var string[]
      */
-    const FILE_SIZE = 33637;
+    const INFECTED_JS_PATHS = [
+        _PS_ROOT_DIR_ . '/js/',
+        _PS_MODULE_DIR_,
+    ];
 
     /**
+     * File size of a known infected JS file.
+     *
      * @var int
      */
-    const FILE_LENGTH = [
+    const MALWARE_JS_FILE_SIZE = 33637;
+
+    /**
+     * File length of a known infected JS file.
+     *
+     * @var int
+     */
+    const MALWARE_JS_FILE_LENGTH = [
         5,
         6,
     ];
 
     /**
+     * File extension of a known infected JS file.
+     *
      * @var string
      */
-    const FILE_EXTENSION = 'js';
+    const MALWARE_JS_FILE_EXTENSION = 'js';
 
     /**
      * @var string[]
@@ -177,32 +239,31 @@ final class Config
     ];
 
     /**
+     * Directories known for PHP unit test vulnerability.
+     *
      * @var string[]
      */
-    const SCAN_DIRECTORIES = [
-        _PS_ROOT_DIR_ . '/vendor/'
+    const VULNERABLE_DIRECTORIES_PATTERN = [
+        _PS_ROOT_DIR_ . '/vendor/',
+        _PS_MODULE_DIR_,
     ];
 
     /**
+     * Directories to be removed.
+     *
+     * @var string
+     */
+    const VULNERABLE_DIRECTORY = 'phpunit';
+
+    /**
+     * Known vulnerable modules.
+     *
      * @var array<string, string>
      */
     const PATCH_MODULES = [
         'blockwishlist' => '2.1.1',
         'bamegamenu' => '1.0.32',
     ];
-
-    /**
-     * @var string[]
-     */
-    const INFECTED_JS_PATHS = [
-        _PS_ROOT_DIR_ . '/js/',
-        _PS_MODULE_DIR_,
-    ];
-
-    /**
-     * @var string
-     */
-    const REMOVE_DIRECTORY = 'phpunit';
 
     private function __construct()
     {

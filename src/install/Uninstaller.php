@@ -41,7 +41,7 @@ final class Uninstaller extends AbstractInstaller
     private function uninstallTab(): bool
     {
         return (new TabBuilder(new Tab()))
-            ->className(Config::CONTROLLER_NAME)
+            ->className(Config::ADMIN_CONTROLLER_NAME)
             ->uninstall();
     }
 }

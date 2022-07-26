@@ -1,8 +1,8 @@
 {
-  "name": "blmvuln/blmvuln",
+  "name": "mathiasreker/blmvuln",
   "description": "blmvuln",
   "type": "prestashop-module",
-  "homepage": "https://addons.prestashop.com/en/",
+  "homepage": "https://github.com/MathiasReker/blmvuln",
   "license": "MIT",
   "keywords": [],
   "authors": [

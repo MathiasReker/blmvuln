@@ -70,7 +70,7 @@ final class RemoveDirectories implements ScannerInterface
 
         foreach ($this->vulnerableDirectories as $vulnerableDirectory) {
             if (is_dir($vulnerableDirectory)) {
-                Tools::deleteDirectory($this->getRoot() . $vulnerableDirectory, true);
+                Tools::deleteDirectory($vulnerableDirectory, true);
             }
         }
 

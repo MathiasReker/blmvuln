@@ -27,7 +27,7 @@ use PrestaShop\Module\BlmVuln\web\util\View;
 final class ScannerForm extends AbstractForm
 {
     /**
-     * @return array{form: array<string, mixed>}
+     * @return array{form: array<string, string>}
      */
     public function getFields(): array
     {
@@ -77,38 +77,34 @@ final class ScannerForm extends AbstractForm
                 $this->module->l('No patches required.', $this->className),
             ],
             [
-                (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->dryRun(),
-                $this->module->l('The following files look infected. They will be restored to their original state by running the cleaning process:', $this->className),
+                array_merge(
+                    (new RestoreFiles(Config::INFECTED_FILES_PATTERN))->scan()->dryRun(),
+                    (new RemoveFiles(Config::MALWARE_FILES_PATTERN))->scan()->dryRun(),
+                    (new RemoveFilesByPattern(Config::INFECTED_JS_PATHS))
+                        ->setFilesize(Config::MALWARE_JS_FILE_SIZE)
+                        ->setFileLength(Config::MALWARE_JS_FILE_LENGTH)
+                        ->setFileExtension(Config::MALWARE_JS_FILE_EXTENSION)
+                        ->scan()
+                        ->dryRun()
+                ),
+                $this->module->l('The following files looks infected. They will be restored or removed by running the cleaning process:', $this->className),
                 $this->module->l('No infected files was found.', $this->className),
             ],
             [
                 array_merge(
-                    (new RemoveFiles(Config::MALWARE_FILES_PATTERN))->scan()->dryRun(),
-                    (new RemoveFilesByPattern(Config::INFECTED_JS_PATHS))
-                        ->setFilesize(Config::FILE_SIZE)
-                        ->setFileLength(Config::FILE_LENGTH)
-                        ->setFileExtension(Config::FILE_EXTENSION)
-                        ->scan()
-                        ->dryRun()
-                ),
-                $this->module->l('The following files are malware. They will be removed by running the cleaning process:', $this->className),
-                $this->module->l('No malware was found.', $this->className),
-            ],
-            [
-                array_merge(
-                    (new RemoveDirectories(Config::SCAN_DIRECTORIES))
-                        ->setFolder(Config::REMOVE_DIRECTORY)
+                    (new RemoveDirectories(Config::VULNERABLE_DIRECTORIES_PATTERN))
+                        ->setFolder(Config::VULNERABLE_DIRECTORY)
                         ->setRecursive(false)
                         ->scan()
                         ->dryRun(),
-                    (new RemoveDirectories(Config::SCAN_DIRECTORIES))
-                        ->setFolder(Config::REMOVE_DIRECTORY)
+                    (new RemoveDirectories(Config::VULNERABLE_DIRECTORIES_PATTERN))
+                        ->setFolder(Config::VULNERABLE_DIRECTORY)
                         ->setRecursive(true)
                         ->scan()
                         ->dryRun()
                 ),
-                $this->module->l('The following folders look vulnerable. They will be removed by running the cleaning process:', $this->className),
-                $this->module->l('No vulnerable folders was found.', $this->className),
+                $this->module->l('The following packages can contain vulnerable files. They will be removed by running the cleaning process:', $this->className),
+                $this->module->l('No vulnerable packages was found.', $this->className),
             ],
             [
                 (new FilePermissions(Config::PERMISSION_DIRECTORIES))

@@ -37,7 +37,13 @@ final class FilePermissions implements ScannerInterface
         $root = $this->getRoot();
 
         foreach ($this->directories as $directory) {
-            $this->scanDirectory($root . $directory);
+            $path = $root . $directory;
+
+            if (!is_dir($path)) {
+                continue;
+            }
+
+            $this->scanDirectory($path);
         }
 
         return $this;

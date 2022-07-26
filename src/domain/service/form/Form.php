@@ -38,17 +38,17 @@ final class Form implements FormInterface
 
         $this->helperForm->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
 
-        $this->helperForm->name_controller = Config::CONTROLLER_NAME;
+        $this->helperForm->name_controller = Config::ADMIN_CONTROLLER_NAME;
 
         $this->helperForm->submit_action = $submitName;
 
         $this->helperForm->currentIndex = ContextService::getLink()->getAdminLink(
-            Config::CONTROLLER_NAME,
+            Config::ADMIN_CONTROLLER_NAME,
             false,
             false
         );
 
-        $this->helperForm->token = Tools::getAdminTokenLite(Config::CONTROLLER_NAME);
+        $this->helperForm->token = Tools::getAdminTokenLite(Config::ADMIN_CONTROLLER_NAME);
 
         $this->helperForm->tpl_vars = [
             'fields_value' => $this->getConfigFormValues(),
