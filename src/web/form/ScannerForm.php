@@ -113,7 +113,7 @@ final class ScannerForm extends AbstractForm
             [
                 (new FilePermissions(Config::PERMISSION_DIRECTORIES))
                     ->scan()
-                    ->fix(),
+                    ->dryRun(),
                 $this->module->l('The following file/folder permissions is insecure. They will be fixed by running the cleaning process:', $this->className
                 ),
                 $this->module->l('No insecure file/folder permissions was found.', $this->className),
