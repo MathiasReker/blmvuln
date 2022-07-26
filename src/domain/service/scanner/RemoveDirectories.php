@@ -22,7 +22,7 @@ use Tools;
 final class RemoveDirectories implements ScannerInterface
 {
     /**
-     * @var mixed[]
+     * @var string[]
      */
     private $vulnerableDirectories = [];
 
@@ -78,7 +78,7 @@ final class RemoveDirectories implements ScannerInterface
     }
 
     /**
-     * @return mixed[]
+     * @return string[]
      */
     public function dryRun(): array
     {
@@ -88,15 +88,19 @@ final class RemoveDirectories implements ScannerInterface
     private function scanRecursive()
     {
         foreach ($this->scanDirectories as $scanDirectory) {
-            $iter = new RecursiveIteratorIterator(
+            if (!is_dir($scanDirectory)) {
+                continue;
+            }
+
+            $iterator = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator($scanDirectory, FilesystemIterator::SKIP_DOTS),
                 RecursiveIteratorIterator::SELF_FIRST,
                 RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
             );
 
-            foreach ($iter as $dir) {
-                if ($dir->isDir() && $this->folder === $dir->getFilename()) {
-                    $this->vulnerableDirectories[] = $dir->getRealpath();
+            foreach ($iterator as $path) {
+                if ($path->isDir() && $this->folder === $path->getFilename()) {
+                    $this->vulnerableDirectories[] = $path->getRealpath();
                 }
             }
         }
@@ -105,6 +109,10 @@ final class RemoveDirectories implements ScannerInterface
     private function scanNonRecursive()
     {
         foreach ($this->scanDirectories as $scanDirectory) {
+            if (!is_dir($scanDirectory)) {
+                continue;
+            }
+
             $fullPath = $scanDirectory . $this->folder;
 
             if (is_dir($fullPath)) {
