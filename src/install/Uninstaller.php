@@ -24,7 +24,7 @@ final class Uninstaller extends AbstractInstaller
     {
         $this->uninstallConfig();
 
-        return true;
+        return $this->uninstallTab();
     }
 
     private function uninstallConfig()
@@ -36,5 +36,12 @@ final class Uninstaller extends AbstractInstaller
         foreach (array_keys($this->fieldValues) as $name) {
             Configuration::deleteByName($name);
         }
+    }
+
+    private function uninstallTab(): bool
+    {
+        return (new TabBuilder(new Tab()))
+            ->className(Config::ADMIN_CONTROLLER_NAME)
+            ->uninstall();
     }
 }

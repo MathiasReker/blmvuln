@@ -28,7 +28,7 @@ final class Installer extends AbstractInstaller
 
         $this->installConfig();
 
-        return true;
+        return $this->installTab();
     }
 
     private function checkPhpVersion()
@@ -61,5 +61,16 @@ final class Installer extends AbstractInstaller
                 $this->displayError($error);
             }
         }
+    }
+
+    private function installTab(): bool
+    {
+        return (new TabBuilder(new Tab()))
+            ->module($this->module->name)
+            ->displayName($this->module->displayName)
+            ->className(Config::ADMIN_CONTROLLER_NAME)
+            ->parentClassName('IMPROVE')
+            ->icon('security')
+            ->install();
     }
 }

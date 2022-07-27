@@ -52,7 +52,7 @@ abstract class AbstractInstaller
         $this->className = (new ReflectionClass($this))->getShortName();
     }
 
-    abstract public function execute(): bool;
+    abstract public function execute();
 
     protected function displayError(string $error)
     {
