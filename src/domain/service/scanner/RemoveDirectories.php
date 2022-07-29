@@ -39,7 +39,7 @@ final class RemoveDirectories implements ScannerInterface
     /**
      * @var string
      */
-    private $folder;
+    private $directory;
 
     public function __construct(array $directories)
     {
@@ -53,9 +53,9 @@ final class RemoveDirectories implements ScannerInterface
         return $this;
     }
 
-    public function setDirectory(string $folder): self
+    public function setDirectory(string $directory): self
     {
-        $this->folder = $folder;
+        $this->directory = $directory;
 
         return $this;
     }
@@ -96,19 +96,19 @@ final class RemoveDirectories implements ScannerInterface
 
     private function scanRecursive()
     {
-        foreach ($this->directories as $scanDirectory) {
-            if (!is_dir($scanDirectory)) {
+        foreach ($this->directories as $directory) {
+            if (!is_dir($directory)) {
                 continue;
             }
 
             $iterator = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($scanDirectory, FilesystemIterator::SKIP_DOTS),
+                new RecursiveDirectoryIterator($directory, FilesystemIterator::SKIP_DOTS),
                 RecursiveIteratorIterator::SELF_FIRST,
                 RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
             );
 
             foreach ($iterator as $path) {
-                if ($path->isDir() && $this->folder === $path->getFilename()) {
+                if ($path->isDir() && $this->directory === $path->getFilename()) {
                     $this->vulnerableDirectories[] = $path->getRealpath();
                 }
             }
@@ -122,7 +122,7 @@ final class RemoveDirectories implements ScannerInterface
                 continue;
             }
 
-            $path = $directory . $this->folder;
+            $path = $directory . $this->directory;
 
             if (is_dir($path)) {
                 $this->vulnerableDirectories[] = $path;

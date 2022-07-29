@@ -46,9 +46,20 @@ final class AdminBlmVulnController extends ModuleAdminController
 
     private function fixVulnerabilities()
     {
-        (new RestoreFiles(Config::POSSIBLE_INFECTED_FILES))->scan()->fix();
+        // Filesystem is safer and faster than sql
+        Configuration::updateGlobalValue('PS_SMARTY_CACHING_TYPE', 'filesystem');
 
-        (new RemoveFiles(array_merge(Config::MALWARE_FILES, Config::CACHE_FILES)))->scan()->fix();
+        (new RestoreFiles(Config::POSSIBLE_INFECTED_FILES))
+            ->setRoot(Config::ROOT_DIRECTORY)
+            ->setPatchRoot(Config::PATCH_ROOT_DIRECTORY)
+            ->scan()
+            ->fix();
+
+        (new RemoveFiles(array_merge(Config::MALWARE_FILES, Config::CACHE_FILES)))
+            ->setRoot(Config::ROOT_DIRECTORY)
+            ->isRecursive(false)
+            ->scan()
+            ->fix();
 
         (new RemoveFilesByPattern(Config::INFECTED_JS_PATHS))
             ->setFilesize(Config::MALWARE_JS_FILE_SIZE)
@@ -58,6 +69,7 @@ final class AdminBlmVulnController extends ModuleAdminController
             ->fix();
 
         (new FilePermissions(Config::PERMISSION_DIRECTORIES))
+            ->setRoot(Config::ROOT_DIRECTORY)
             ->scan()
             ->fix();
 
@@ -73,9 +85,6 @@ final class AdminBlmVulnController extends ModuleAdminController
             ->scan()
             ->fix();
 
-        // Filesystem is safer and faster than sql
-        Configuration::updateGlobalValue('PS_SMARTY_CACHING_TYPE', 'filesystem');
-
         (new ClearSmartyCache())->all();
     }
 
@@ -86,6 +95,6 @@ final class AdminBlmVulnController extends ModuleAdminController
             (new HelpForm($this->module))->getFields(),
         ];
 
-        return (new Form(new HelperForm()))->render($forms, self::SUBMIT_NAME);
+        return (new Form($this->module))->render($forms, self::SUBMIT_NAME);
     }
 }

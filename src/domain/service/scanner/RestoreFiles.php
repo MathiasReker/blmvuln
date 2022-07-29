@@ -16,7 +16,7 @@ namespace PrestaShop\Module\BlmVuln\domain\service\scanner;
 
 use PrestaShop\Module\BlmVuln\resources\config\Config;
 
-final class RestoreFiles extends AbstractScanner implements ScannerInterface
+final class RestoreFiles implements ScannerInterface
 {
     /**
      * @var string[]
@@ -28,28 +28,46 @@ final class RestoreFiles extends AbstractScanner implements ScannerInterface
      */
     private $files;
 
+    /**
+     * @var string
+     */
+    private $root;
+
+    /**
+     * @var string
+     */
+    private $patchRoot;
+
     public function __construct(array $files)
     {
         $this->files = $files;
     }
 
+    public function setRoot(string $root): self {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    public function setPatchRoot(string $patchRoot): self {
+        $this->patchRoot = $patchRoot;
+
+        return $this;
+    }
+
     public function scan(): self
     {
-        $originalRoot = $this->getOriginalRoot();
-
-        $root = $this->getRoot();
-
         foreach ($this->files as $file) {
-            $currentFile = $root . $file;
+            $currentFile = $this->root . $file;
 
             if (file_exists($currentFile)) {
-                $originalFile = $originalRoot . $file;
+                $patchFile = $this->patchRoot . $file;
 
-                if (!is_file($originalFile)) {
+                if (!is_file($patchFile)) {
                     continue;
                 }
 
-                if ($this->isDifferance($originalFile, $currentFile)) {
+                if ($this->isDifferance($patchFile, $currentFile)) {
                     $this->infectedFiles[] = $file;
                 }
             }
@@ -65,9 +83,9 @@ final class RestoreFiles extends AbstractScanner implements ScannerInterface
         }
 
         foreach ($this->infectedFiles as $infectedFile) {
-            $cleanFile = file_get_contents($this->getOriginalRoot() . $infectedFile);
+            $cleanFile = file_get_contents($this->patchRoot . $infectedFile);
 
-            file_put_contents($this->getRoot() . $infectedFile, $cleanFile);
+            file_put_contents($this->root . $infectedFile, $cleanFile);
         }
 
         return true;
@@ -79,11 +97,6 @@ final class RestoreFiles extends AbstractScanner implements ScannerInterface
     public function dryRun(): array
     {
         return $this->infectedFiles;
-    }
-
-    private function getOriginalRoot(): string
-    {
-        return _PS_MODULE_DIR_ . Config::MODULE_NAME . '/bin/' . _PS_VERSION_ . '/';
     }
 
     private function isDifferance(string $file1, string $file2): bool

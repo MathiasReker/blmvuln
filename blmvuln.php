@@ -18,7 +18,7 @@ final class BlmVuln extends Module
 
         $this->tab = 'administration';
 
-        $this->version = '2.1.3';
+        $this->version = '2.2.0';
 
         $this->author = 'Mathias R.';
 
@@ -63,6 +63,19 @@ final class BlmVuln extends Module
         return true;
     }
 
+    private function setShopContextAll(): bool
+    {
+        if (Shop::isFeatureActive()) {
+            try {
+                Shop::setContext(Shop::CONTEXT_ALL);
+            } catch (PrestaShopException $prestaShopException) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function uninstall(): bool
     {
         if (!$this->setShopContextAll()) {
@@ -102,19 +115,6 @@ final class BlmVuln extends Module
         $this->redirectToModuleAdminController();
     }
 
-    private function setShopContextAll(): bool
-    {
-        if (Shop::isFeatureActive()) {
-            try {
-                Shop::setContext(Shop::CONTEXT_ALL);
-            } catch (PrestaShopException $prestaShopException) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     /**
      * Redirects the user to the admin front controller.
      */
@@ -127,5 +127,10 @@ final class BlmVuln extends Module
         );
 
         Tools::redirectAdmin($redirect);
+    }
+
+    public function getContext()
+    {
+        return $this->context;
     }
 }

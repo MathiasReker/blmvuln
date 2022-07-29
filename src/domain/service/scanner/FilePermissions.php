@@ -19,7 +19,7 @@ use PrestaShop\Module\BlmVuln\resources\config\Config;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-final class FilePermissions extends AbstractScanner implements ScannerInterface
+final class FilePermissions implements ScannerInterface
 {
     /**
      * @var string[]
@@ -31,17 +31,26 @@ final class FilePermissions extends AbstractScanner implements ScannerInterface
      */
     private $directories;
 
+    /**
+     * @param string
+     */
+    private $root;
+
     public function __construct(array $directories)
     {
         $this->directories = $directories;
     }
 
+    public function setRoot($root): self {
+        $this->root = $root;
+
+        return $this;
+    }
+
     public function scan(): self
     {
-        $root = $this->getRoot();
-
         foreach ($this->directories as $directory) {
-            $path = $root . $directory;
+            $path = $this->root . $directory;
 
             if (is_dir($path)) {
                 $this->scanDirectory($path);
@@ -61,15 +70,14 @@ final class FilePermissions extends AbstractScanner implements ScannerInterface
 
         $isWindows = $this->isWindows();
 
-        foreach ($iterator as $info) {
-            $filePermissions = mb_substr(sprintf('%o', $info->getPerms()), -4);
+        foreach ($iterator as $path) {
+            $filePermissions = mb_substr(sprintf('%o', $path->getPerms()), -4);
 
-            if ($info->isDir()) {
+            if ($path->isDir()) {
                 if (\in_array($filePermissions, Config::ALLOWED_FOLDER_PERMISSIONS, true)) {
                     continue;
                 }
 
-                // On a Windows OS, don't bother for chmod 777
                 if ($isWindows && '0777' === $filePermissions) {
                     continue;
                 }
@@ -77,9 +85,13 @@ final class FilePermissions extends AbstractScanner implements ScannerInterface
                 if (\in_array($filePermissions, Config::ALLOWED_FILE_PERMISSIONS, true)) {
                     continue;
                 }
+
+                if ($isWindows && '0666' === $filePermissions) {
+                    continue;
+                }
             }
 
-            $this->insecurePermissionFiles[] = $info->getPathname();
+            $this->insecurePermissionFiles[] = $path->getPathname();
         }
     }
 

@@ -61,7 +61,6 @@ final class Config
         '0444',
         '0640',
         '0644',
-        '0666',
     ];
 
     /**
@@ -165,6 +164,8 @@ final class Config
     const MALWARE_JS_FILE_EXTENSION = 'js';
 
     /**
+     * Malware files.
+     *
      * @var string[]
      */
     const MALWARE_FILES = [
@@ -238,6 +239,18 @@ final class Config
     ];
 
     /**
+     * Root directory.
+     *
+     * @var string
+     */
+    const ROOT_DIRECTORY = _PS_ROOT_DIR_ . '/';
+
+    /**
+     * Patch root directory.
+     */
+    const PATCH_ROOT_DIRECTORY = _PS_MODULE_DIR_ . self::MODULE_NAME . '/bin/' . _PS_VERSION_ . '/';
+
+    /**
      * Directory to be removed.
      *
      * @var string
@@ -251,7 +264,7 @@ final class Config
      */
     const VULNERABLE_MODULES = [
         'bamegamenu' => '1.0.32',
-        'blockwishlist' => '2.1.1',
+        'blockwishlist' => ['2.0.0', '2.1.0'],
     ];
 
     private function __construct()

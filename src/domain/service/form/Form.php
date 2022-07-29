@@ -17,7 +17,7 @@ namespace PrestaShop\Module\BlmVuln\domain\service\form;
 use Configuration;
 use HelperForm;
 use Language;
-use PrestaShop\Module\BlmVuln\domain\service\util\ContextService;
+use Module;
 use PrestaShop\Module\BlmVuln\resources\config\Config;
 use PrestaShop\Module\BlmVuln\resources\config\Field;
 use Tools;
@@ -25,20 +25,27 @@ use Tools;
 final class Form implements FormInterface
 {
     /**
+     * @var Module
+     */
+    private $module;
+
+    /**
      * @var HelperForm
      */
     private $helperForm;
 
-    public function __construct(HelperForm $helperForm)
+    public function __construct(Module $module)
     {
-        $this->helperForm = $helperForm;
+        $this->module = $module;
+
+        $this->helperForm = new HelperForm();
     }
 
     public function render(array $forms, string $submitName): string
     {
         $this->helperForm->show_toolbar = false;
 
-        $this->helperForm->default_form_language = ContextService::getLanguage()->id;
+        $this->helperForm->default_form_language = $this->module->getContext()->language->id;
 
         $this->helperForm->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
 
@@ -46,7 +53,7 @@ final class Form implements FormInterface
 
         $this->helperForm->submit_action = $submitName;
 
-        $this->helperForm->currentIndex = ContextService::getLink()->getAdminLink(
+        $this->helperForm->currentIndex = $this->module->getContext()->link->getAdminLink(
             Config::ADMIN_CONTROLLER_NAME,
             false,
             false
@@ -56,8 +63,8 @@ final class Form implements FormInterface
 
         $this->helperForm->tpl_vars = [
             'fields_value' => $this->getConfigFormValues(),
-            'languages' => ContextService::getController()->getLanguages(),
-            'id_language' => ContextService::getLanguage()->id,
+            'languages' => $this->module->getContext()->controller->getLanguages(),
+            'id_language' => $this->module->getContext()->language->id,
         ];
 
         return $this->helperForm->generateForm($forms);

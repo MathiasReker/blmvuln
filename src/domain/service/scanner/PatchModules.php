@@ -38,10 +38,18 @@ final class PatchModules implements ScannerInterface
     {
         foreach ($this->modules as $module => $version) {
             if (Module::isInstalled($module)) {
-                $moduleVersion = Module::getInstanceByName($module)->version;
+                $installedModuleVersion = Module::getInstanceByName($module)->version;
 
-                if (Tools::version_compare($moduleVersion, $version)) {
-                    $this->vulnerableModules[] = $module;
+                if (is_string($version)) {
+                    if (Tools::version_compare($installedModuleVersion, $version)) {
+                        $this->vulnerableModules[] = $module;
+                    }
+                } else {
+                    if (Tools::version_compare($installedModuleVersion, $version[0], '>=') &&
+                        Tools::version_compare($installedModuleVersion, $version[1], '<=')
+                    ) {
+                        $this->vulnerableModules[] = $module;
+                    }
                 }
             }
         }

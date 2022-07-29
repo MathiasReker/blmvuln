@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-	<name>blmvuln</name>
-	<displayName><![CDATA[BLM vulnerability]]></displayName>
-	<version><![CDATA[2.1.3]]></version>
-	<description><![CDATA[This module aims to secure a website vulnerable to CVE-2022-31101.]]></description>
-	<author><![CDATA[Mathias R.]]></author>
-	<tab><![CDATA[administration]]></tab>
-	<is_configurable>1</is_configurable>
-	<need_instance>0</need_instance>
+    <name>blmvuln</name>
+    <displayName><![CDATA[BLM vulnerability]]></displayName>
+    <version><![CDATA[2.2.0]]></version>
+    <description><![CDATA[This module aims to secure a website vulnerable to CVE-2022-31101.]]></description>
+    <author><![CDATA[Mathias R.]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
 	<limited_countries></limited_countries>
 </module>

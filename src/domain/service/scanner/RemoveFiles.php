@@ -14,7 +14,11 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\BlmVuln\domain\service\scanner;
 
-final class RemoveFiles extends AbstractScanner implements ScannerInterface
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+
+final class RemoveFiles implements ScannerInterface
 {
     /**
      * @var string[]
@@ -26,24 +30,70 @@ final class RemoveFiles extends AbstractScanner implements ScannerInterface
      */
     private $files;
 
+    /**
+     * @var string
+     */
+    private $root;
+
+    /**
+     * @var bool
+     */
+    private $isRecursive;
+
     public function __construct(array $files)
     {
         $this->files = $files;
     }
 
+    public function setRoot(string $root): self
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    public function isRecursive(bool $isRecursive): self
+    {
+        $this->isRecursive = $isRecursive;
+
+        return $this;
+    }
+
     public function scan(): self
     {
-        $root = $this->getRoot();
+        if ($this->isRecursive) {
+            $this->scanRecursive();
+        } else {
+            $this->scanNonRecursive();
+        }
 
+        return $this;
+    }
+
+    private function scanRecursive()
+    {
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($this->root, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST,
+            RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
+        );
+
+        foreach ($iterator as $path) {
+            if ($path->isFile() && in_array($path->getFilename(), $this->files)) {
+                $this->infectedFiles[] = $path->getRealpath();
+            }
+        }
+    }
+
+    private function scanNonRecursive()
+    {
         foreach ($this->files as $file) {
-            $currentFile = $root . $file;
+            $currentFile = $this->root . $file;
 
             if (file_exists($currentFile)) {
                 $this->infectedFiles[] = $currentFile;
             }
         }
-
-        return $this;
     }
 
     public function fix(): bool
