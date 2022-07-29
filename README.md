@@ -34,8 +34,8 @@ Run this module on your shop to recover from the attack.
 
 ### How does the module work?
 
-The module will scan the files of your shop based on a pattern. This pattern is designed to find vulnerabilities and
-infected files are known from this security issue.
+The module scans the files of your shop based on a pattern. This pattern is designed to find vulnerabilities and
+infected files known from the security issue.
 
 The module will solve the problems automatically or tell you how to solve them manually.
 
