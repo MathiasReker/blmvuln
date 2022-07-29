@@ -37,7 +37,7 @@ abstract class AbstractForm
     }
 
     /**
-     * @return mixed[]
+     * @return array{form: array<string, string>}
      */
     abstract public function getFields(): array;
 }

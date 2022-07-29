@@ -46,7 +46,7 @@ final class ScannerForm extends AbstractForm
                     [
                         'type' => 'html',
                         'label' => '',
-                        'html_content' => $this->infectedFiles(),
+                        'html_content' => $this->render(),
                         'col' => 12,
                         'name' => '',
                     ],
@@ -58,9 +58,26 @@ final class ScannerForm extends AbstractForm
         ];
     }
 
-    private function infectedFiles(): string
+    private function render(): string
     {
-        $sections = [
+        $result = '';
+
+        foreach ($this->getSections() as $section) {
+            if (!empty($section[0])) {
+                $result .= View::displayAlertDanger($section[1] . '<br>' . implode('<br>', $section[0]));
+            } else {
+                $result .= View::displayAlertSuccess($section[2]);
+            }
+        }
+
+        $result .= $this->getStyle();
+
+        return $result;
+    }
+
+    private function getSections(): array
+    {
+        return [
             [
                 $this->getPatchModules(),
                 $this->module->l('Your website is vulnerable. You must upgrade the following modules manually:', $this->className),
@@ -82,20 +99,6 @@ final class ScannerForm extends AbstractForm
                 $this->module->l('No insecure filepermissions was found.', $this->className),
             ],
         ];
-
-        $result = '';
-
-        foreach ($sections as $section) {
-            if (!empty($section[0])) {
-                $result .= View::displayAlertDanger($section[1] . '<br>' . implode('<br>', $section[0]));
-            } else {
-                $result .= View::displayAlertSuccess($section[2]);
-            }
-        }
-
-        $result .= '<style>.bootstrap, .form-horizontal, .form-wrapper{max-width: 100% !important;}</style>';
-
-        return $result;
     }
 
     /**
@@ -160,5 +163,10 @@ final class ScannerForm extends AbstractForm
         return (new FilePermissions(Config::PERMISSION_DIRECTORIES))
             ->scan()
             ->dryRun();
+    }
+
+    private function getStyle(): string
+    {
+        return '<style>.bootstrap, .form-horizontal, .form-wrapper{max-width: 100% !important;}</style>';
     }
 }
