@@ -18,6 +18,8 @@
 Read more about the vulnerability
 here: [https://build.prestashop.com/news/major-security-vulnerability-on-prestashop-websites/](https://build.prestashop.com/news/major-security-vulnerability-on-prestashop-websites/).
 
+![](https://user-images.githubusercontent.com/26626066/181037865-042d2b97-385e-4c90-9560-859a7639082d.png)
+
 ### Fix the backdoor
 
 The module will make a security fix that strengthens the MySQL Smarty cache storage against code injection attacks.
@@ -39,7 +41,7 @@ infected files known from the security issue.
 
 The module will solve the problems automatically or tell you how to solve them manually.
 
-![image](https://user-images.githubusercontent.com/26626066/181037865-042d2b97-385e-4c90-9560-859a7639082d.png)
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Install the module
 
@@ -53,17 +55,23 @@ The module will solve the problems automatically or tell you how to solve them m
 
 5. Upload and install the module
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ## Usage
 
 1. Open the module and click "Run the cleaning process".
 
 2. After running the cleaning process, you can uninstall the module.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ## Compatibility
 
 - [x] PrestaShop 1.6.1+
 - [x] thirty bees 1.0.0+
 - [x] PHP 7.0+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Roadmap
 
