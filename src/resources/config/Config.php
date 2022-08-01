@@ -233,7 +233,7 @@ final class Config
      *
      * @var string[]
      */
-    const VULNERABLE_ROOT_DIRECTORIES = [
+    const VULNERABLE_DIRECTORIES = [
         _PS_MODULE_DIR_,
         _PS_ROOT_DIR_ . '/vendor/',
     ];

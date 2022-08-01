@@ -73,13 +73,13 @@ final class AdminBlmVulnController extends ModuleAdminController
             ->scan()
             ->fix();
 
-        (new RemoveDirectories(Config::VULNERABLE_ROOT_DIRECTORIES))
+        (new RemoveDirectories([Config::ROOT_DIRECTORY]))
             ->setDirectory(Config::VULNERABLE_DIRECTORY)
             ->setRecursive(false)
             ->scan()
             ->fix();
 
-        (new RemoveDirectories(Config::VULNERABLE_ROOT_DIRECTORIES))
+        (new RemoveDirectories(Config::VULNERABLE_DIRECTORIES))
             ->setDirectory(Config::VULNERABLE_DIRECTORY)
             ->setRecursive(true)
             ->scan()

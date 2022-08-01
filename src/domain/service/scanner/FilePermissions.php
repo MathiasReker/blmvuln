@@ -41,7 +41,7 @@ final class FilePermissions implements ScannerInterface
         $this->directories = $directories;
     }
 
-    public function setRoot($root): self {
+    public function setRoot(string $root): self {
         $this->root = $root;
 
         return $this;
